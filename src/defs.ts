@@ -269,6 +269,7 @@ export interface PageMetadata extends BasicPageMeta {
   client?: string;
   channel?: string;
   connection_type?: string;
+  root_group?: boolean
 }
 
 export interface MessagesPage {
