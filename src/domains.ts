@@ -2,19 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Errors from "./errors";
-import type {
-  Domain,
-  PageMetadata,
-  DomainsPage,
-  Response,
-  Role,
-  BasicPageMeta,
-  RolePage,
-  MemberRolesPage,
-  MembersPage,
-  Invitation,
-  InvitationsPage,
-  InvitationPageMeta,
+import {
+  type Domain,
+  type PageMetadata,
+  type DomainsPage,
+  type Response,
+  type Role,
+  type BasicPageMeta,
+  type RolePage,
+  type MemberRolesPage,
+  type MembersPage,
+  type Invitation,
+  type InvitationsPage,
+  type InvitationPageMeta,
+  QueryParamRoles,
 } from "./defs";
 import Roles from "./roles";
 
@@ -120,10 +121,15 @@ export default class Domains {
    * @method Domain - Retrieves a domain by its ID.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<Domain>} domain - The requested domain object.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
+   * @returns {Promise<Domain>} The requested domain object.
    * @throws {Error} - If the domain cannot be fetched.
    */
-  public async Domain(domainId: string, token: string): Promise<Domain> {
+  public async Domain(
+    domainId: string,
+    token: string,
+    listRoles?: boolean
+  ): Promise<Domain> {
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -133,13 +139,14 @@ export default class Domains {
     };
 
     try {
-      const response = await fetch(
-        new URL(
-          `${this.domainsEndpoint}/${domainId}`,
-          this.domainsUrl
-        ).toString(),
-        options
+      const url = new URL(
+        `${this.domainsEndpoint}/${domainId}`,
+        this.domainsUrl
       );
+      if (listRoles !== undefined) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
+      const response = await fetch(url.toString(), options);
       if (!response.ok) {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);
@@ -788,7 +795,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<Response>} response - A promise that resolves when the invitation is sent.
    * @throws {Error} - If the invitation cannot be sent.
-  */
+   */
   public async SendInvitation(
     userId: string,
     domainId: string,
@@ -805,7 +812,10 @@ export default class Domains {
     };
     try {
       const response = await fetch(
-        new URL(`${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}`, this.domainsUrl).toString(),
+        new URL(
+          `${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}`,
+          this.domainsUrl
+        ).toString(),
         options
       );
       if (!response.ok) {
@@ -829,7 +839,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<Invitation>} invitation - The invitation object.
    * @throws {Error} - If the invitation cannot be fetched.
-  */
+   */
   public async ViewInvitation(
     userId: string,
     domainId: string,
@@ -844,7 +854,10 @@ export default class Domains {
     };
     try {
       const response = await fetch(
-        new URL(`${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}/${userId}`, this.domainsUrl).toString(),
+        new URL(
+          `${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}/${userId}`,
+          this.domainsUrl
+        ).toString(),
         options
       );
       if (!response.ok) {
@@ -865,7 +878,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<InvitationsPage>} invitationsPage - A page of domain invitations.
    * @throws {Error} - If the domain invitations cannot be fetched.
-  */
+   */
   public async ListDomainInvitations(
     queryParams: InvitationPageMeta,
     domainId: string,
@@ -885,9 +898,12 @@ export default class Domains {
 
     try {
       const response = await fetch(
-        new URL(`${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}?${new URLSearchParams(
-          stringParams
-        ).toString()}`, this.domainsUrl).toString(),
+        new URL(
+          `${this.domainsEndpoint}/${domainId}/${
+            this.invitationsEndpoint
+          }?${new URLSearchParams(stringParams).toString()}`,
+          this.domainsUrl
+        ).toString(),
         options
       );
       if (!response.ok) {
@@ -907,7 +923,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<InvitationsPage>} invitationsPage - A page of user invitations.
    * @throws {Error} - If the user invitations cannot be fetched.
-  */
+   */
   public async ListUserInvitations(
     queryParams: PageMetadata,
     token: string
@@ -926,9 +942,12 @@ export default class Domains {
 
     try {
       const response = await fetch(
-        new URL(`${this.invitationsEndpoint}?${new URLSearchParams(
-          stringParams
-        ).toString()}`, this.domainsUrl).toString(),
+        new URL(
+          `${this.invitationsEndpoint}?${new URLSearchParams(
+            stringParams
+          ).toString()}`,
+          this.domainsUrl
+        ).toString(),
         options
       );
       if (!response.ok) {
@@ -948,7 +967,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<Response>} response - A promise that resolves when the invitation is accepted.
    * @throws {Error} - If the invitations cannot be accepted.
-  */
+   */
   public async AcceptInvitation(
     domainId: string,
     token: string
@@ -990,7 +1009,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<Response>} response - A promise that resolves when the invitation is rejected.
    * @throws {Error} - If the invitations cannot be rejected.
-  */
+   */
   public async RejectInvitation(
     domainId: string,
     token: string
@@ -1033,7 +1052,7 @@ export default class Domains {
    * @param {string} token - Authorization token.
    * @returns {Promise<Response>} response - A promise that resolves when the invitation is deleted.
    * @throws {Error} - If the invitations cannot be deleted.
-  */
+   */
   public async DeleteInvitation(
     userId: string,
     domainId: string,
@@ -1049,7 +1068,10 @@ export default class Domains {
 
     try {
       const response = await fetch(
-        new URL(`${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}/${userId}`, this.domainsUrl).toString(),
+        new URL(
+          `${this.domainsEndpoint}/${domainId}/${this.invitationsEndpoint}/${userId}`,
+          this.domainsUrl
+        ).toString(),
         options
       );
       if (!response.ok) {

@@ -3,16 +3,17 @@
 
 import Errors from "./errors";
 
-import type {
-  Channel,
-  PageMetadata,
-  Response,
-  ChannelsPage,
-  Role,
-  RolePage,
-  BasicPageMeta,
-  MemberRolesPage,
-  MembersPage,
+import {
+  type Channel,
+  type PageMetadata,
+  type Response,
+  type ChannelsPage,
+  type Role,
+  type RolePage,
+  type BasicPageMeta,
+  type MemberRolesPage,
+  type MembersPage,
+  QueryParamRoles,
 } from "./defs";
 import Roles from "./roles";
 
@@ -88,13 +89,15 @@ export default class Channels {
    * @param {string} channelId - The unique ID of the channel.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
    * @returns {Promise<Channel>} channel - The requested channel object.
    * @throws {Error} - If the channel cannot be fetched.
    */
   public async Channel(
     channelId: string,
     domainId: string,
-    token: string
+    token: string,
+    listRoles?: boolean
   ): Promise<Channel> {
     const options: RequestInit = {
       method: "GET",
@@ -104,13 +107,14 @@ export default class Channels {
       },
     };
     try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.channelsEndpoint}/${channelId}`,
-          this.channelsUrl
-        ).toString(),
-        options
+      const url = new URL(
+        `${domainId}/${this.channelsEndpoint}/${channelId}`,
+        this.channelsUrl
       );
+      if (listRoles !== undefined) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
+      const response = await fetch(url.toString(), options);
       if (!response.ok) {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);

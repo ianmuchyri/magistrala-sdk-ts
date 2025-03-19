@@ -31,7 +31,7 @@ mySdk.domains
   });
 
 mySdk.domains
-  .Domain(domainId, token)
+  .Domain(domainId, token, false)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -229,12 +229,8 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains.SendInvitation(
-  "<userId>",
-  domainId,
-  "<roleId>",
-  token,
-)
+mySdk.domains
+  .SendInvitation("<userId>", domainId, "<roleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -242,11 +238,8 @@ mySdk.domains.SendInvitation(
     console.error(error);
   });
 
-mySdk.domains.ViewInvitation(
-  "<userId>",
-  domainId,
-  token,
-)
+mySdk.domains
+  .ViewInvitation("<userId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -254,14 +247,15 @@ mySdk.domains.ViewInvitation(
     console.error(error);
   });
 
-mySdk.domains.ListDomainInvitations(
-  {
-    limit: 10,
-    offset: 0,
-  },
-  domainId,
-  token,
-)
+mySdk.domains
+  .ListDomainInvitations(
+    {
+      limit: 10,
+      offset: 0,
+    },
+    domainId,
+    token
+  )
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -269,13 +263,14 @@ mySdk.domains.ListDomainInvitations(
     console.error(error);
   });
 
-mySdk.domains.ListUserInvitations(
-  {
-    limit: 10,
-    offset: 0,
-  },
-  token,
-)
+mySdk.domains
+  .ListUserInvitations(
+    {
+      limit: 10,
+      offset: 0,
+    },
+    token
+  )
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -283,10 +278,8 @@ mySdk.domains.ListUserInvitations(
     console.error(error);
   });
 
-mySdk.domains.AcceptInvitation(
-  domainId,
-  token,
-)
+mySdk.domains
+  .AcceptInvitation(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -294,10 +287,8 @@ mySdk.domains.AcceptInvitation(
     console.error(error);
   });
 
-mySdk.domains.RejectInvitation(
-  domainId,
-  token,
-)
+mySdk.domains
+  .RejectInvitation(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -305,11 +296,8 @@ mySdk.domains.RejectInvitation(
     console.error(error);
   });
 
-mySdk.domains.DeleteInvitation(
-  "<userId>",
-  domainId,
-  token,
-)
+mySdk.domains
+  .DeleteInvitation("<userId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

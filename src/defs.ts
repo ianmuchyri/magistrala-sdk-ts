@@ -45,6 +45,8 @@ export interface ClientBasicInfo {
   status?: Status;
 }
 
+export const QueryParamRoles = "roles";
+
 export interface Client extends ClientBasicInfo {
   tags?: string[];
   domain_id?: string | DomainBasicInfo;
@@ -64,6 +66,8 @@ export interface Client extends ClientBasicInfo {
   access_provider_role_name?: string;
   access_provider_role_actions?: string[];
   connection_types?: string[];
+  member_id?: string;
+  roles?: MemberRoleActions[];
 }
 
 export interface ClientsPage {
@@ -269,7 +273,7 @@ export interface PageMetadata extends BasicPageMeta {
   client?: string;
   channel?: string;
   connection_type?: string;
-  root_group?: boolean
+  root_group?: boolean;
 }
 
 export interface MessagesPage {
@@ -520,33 +524,49 @@ export interface InvitationPageMeta extends BasicPageMeta {
   state?: string;
 }
 
-export type EntityType = "groups" | "channels" | "clients" | "domains" | "users" | "dashboards" | "messages";
+export type EntityType =
+  | "groups"
+  | "channels"
+  | "clients"
+  | "domains"
+  | "users"
+  | "dashboards"
+  | "messages";
 
-export type Operation = "create" | "read" | "list" | "update" | "delete" | "share" | "unshare" | "publish" | "subscribe";
+export type Operation =
+  | "create"
+  | "read"
+  | "list"
+  | "update"
+  | "delete"
+  | "share"
+  | "unshare"
+  | "publish"
+  | "subscribe";
 export interface Scope {
-  id?: string,
-  pat_id?: string,
-  entity_type?: EntityType,
-  optional_domain_id?: string,
-  operation?: Operation,
-  entity_id?: string
+  id?: string;
+  pat_id?: string;
+  entity_type?: EntityType;
+  optional_domain_id?: string;
+  operation?: Operation;
+  entity_id?: string;
 }
 
 export type PatStatus = "active" | "revoked" | "expired" | "all";
 export interface PAT {
-  id?: string
-  user?: string
-  name?: string
-  description?: string
-  secret?: string
-  scope?: Scope[]
-  status?: PatStatus
-  issued_at?: Date
-  expires_at?: Date
-  updated_at?: Date
-  last_used_at?: Date
-  revoked?: boolean
-  revoked_at?: Date
+  id?: string;
+  user?: string;
+  name?: string;
+  description?: string;
+  secret?: string;
+  scope?: Scope[];
+  status?: PatStatus;
+  issued_at?: Date;
+  expires_at?: Date;
+  updated_at?: Date;
+  last_used_at?: Date;
+  revoked?: boolean;
+  revoked_at?: Date;
 }
 
 export interface PATsPage {

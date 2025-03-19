@@ -2,18 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Errors from "./errors";
-import type {
-  Group,
-  GroupsPage,
-  PageMetadata,
-  Response,
-  Role,
-  RolePage,
-  BasicPageMeta,
-  HierarchyPageMeta,
-  HierarchyPage,
-  MemberRolesPage,
-  MembersPage,
+import {
+  type Group,
+  type GroupsPage,
+  type PageMetadata,
+  type Response,
+  type Role,
+  type RolePage,
+  type BasicPageMeta,
+  type HierarchyPageMeta,
+  type HierarchyPage,
+  type MemberRolesPage,
+  type MembersPage,
+  QueryParamRoles,
 } from "./defs";
 import Roles from "./roles";
 
@@ -91,13 +92,15 @@ export default class Groups {
    * @param {string} groupId - The unique identifier of the group.
    * @param {string} domainId - The unique identifier of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<Group>} group - The group object with its details.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
+   * @returns {Promise<Group>} The group object with its details.
    * @throws {Error} - If the group information cannot be retrieved.
    */
   public async Group(
     groupId: string,
     domainId: string,
-    token: string
+    token: string,
+    listRoles?: boolean
   ): Promise<Group> {
     const options: RequestInit = {
       method: "GET",
@@ -108,13 +111,14 @@ export default class Groups {
     };
 
     try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.groupsEndpoint}/${groupId}`,
-          this.groupsUrl
-        ).toString(),
-        options
+      const url = new URL(
+        `${domainId}/${this.groupsEndpoint}/${groupId}`,
+        this.groupsUrl
       );
+      if (listRoles !== undefined) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
+      const response = await fetch(url.toString(), options);
       if (!response.ok) {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);

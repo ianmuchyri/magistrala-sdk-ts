@@ -3,16 +3,17 @@
 
 import Errors from "./errors";
 import Roles from "./roles";
-import type {
-  Client,
-  ClientsPage,
-  Response,
-  PageMetadata,
-  Role,
-  RolePage,
-  BasicPageMeta,
-  MemberRolesPage,
-  MembersPage,
+import {
+  type Client,
+  type ClientsPage,
+  type Response,
+  type PageMetadata,
+  type Role,
+  type RolePage,
+  type BasicPageMeta,
+  type MemberRolesPage,
+  type MembersPage,
+  QueryParamRoles,
 } from "./defs";
 
 /**
@@ -329,13 +330,15 @@ export default class Clients {
    * @param {string} clientId - The unique ID of the client.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<Client>} client - The requested client object.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
+   * @returns {Promise<Client>} The requested client object.
    * @throws {Error} - If the client cannot be fetched.
    */
   public async Client(
     clientId: string,
     domainId: string,
-    token: string
+    token: string,
+    listRoles?: boolean
   ): Promise<Client> {
     const options: RequestInit = {
       method: "GET",
@@ -346,13 +349,14 @@ export default class Clients {
     };
 
     try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.clientsEndpoint}/${clientId}`,
-          this.clientsUrl
-        ).toString(),
-        options
+      const url = new URL(
+        `${domainId}/${this.clientsEndpoint}/${clientId}`,
+        this.clientsUrl
       );
+      if (listRoles !== undefined) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
+      const response = await fetch(url.toString(), options);
       if (!response.ok) {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);

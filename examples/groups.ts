@@ -28,7 +28,7 @@ mySdk.groups
   });
 
 mySdk.groups
-  .Group("<groupId>", domainId, token)
+  .Group("<groupId>", domainId, token, false)
   .then((response: any) => {
     console.log("response: ", response);
   })

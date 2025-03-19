@@ -84,7 +84,7 @@ mySdk.clients
   });
 
 mySdk.clients
-  .Client("<clientId>", domainId, token)
+  .Client("<clientId>", domainId, token, false)
   .then((response: any) => {
     console.log("response: ", response);
   })

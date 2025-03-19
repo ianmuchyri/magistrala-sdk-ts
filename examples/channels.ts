@@ -22,7 +22,7 @@ mySdk.channels
   });
 
 mySdk.channels
-  .Channel("<channelId>", domainId, token)
+  .Channel("<channelId>", domainId, token, false)
   .then((response: any) => {
     console.log(response);
   })
