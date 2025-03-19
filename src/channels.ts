@@ -49,7 +49,7 @@ export default class Channels {
    * @param {Channel} channel - Channel object with a containing details like name, metadata and tags.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<Channel>} channel - The created channel object.
+   * @returns {Promise<Channel>} The created channel object.
    * @throws {Error} - If the channel cannot be created.
    */
   public async CreateChannel(

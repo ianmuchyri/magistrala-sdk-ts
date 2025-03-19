@@ -102,6 +102,8 @@ export interface Group extends GroupBasicInfo {
   access_provider_role_id?: string;
   access_provider_role_name?: string;
   access_provider_role_actions?: string[];
+  member_id?: string;
+  roles?: MemberRoleActions[];
 }
 
 export interface GroupsPage {
@@ -147,6 +149,8 @@ export interface Channel extends ChannelBasicInfo {
   access_provider_role_name?: string;
   access_provider_role_actions?: string[];
   connection_types?: string[];
+  member_id?: string;
+  roles?: MemberRoleActions[];
 }
 
 export interface ChannelsPage {
@@ -184,6 +188,8 @@ export interface Domain extends DomainBasicInfo {
   updated_by?: string | UserBasicInfo;
   created_at?: Date;
   updated_at?: Date;
+  member_id?: string;
+  roles?: MemberRoleActions[];
 }
 
 export interface DomainsPage {
