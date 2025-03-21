@@ -72,7 +72,7 @@ export default class Messages {
     try {
       const response = await fetch(
         new URL(
-          `channels/${chanId}/messages${subtopic}`,
+          `ch/${chanId}/msg${subtopic}`,
           this.httpAdapterUrl
         ).toString(),
         options
