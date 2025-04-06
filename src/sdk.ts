@@ -13,6 +13,7 @@ import Health from "./health";
 import Clients from "./clients";
 import Rules from "./re";
 import PATs from "./pats";
+import Alarms from "./alarms";
 
 export type {
   User,
@@ -80,7 +81,10 @@ export type {
   ScopesPage,
   ScopesPageMeta,
   PatPageMeta,
-  PatStatus
+  PatStatus,
+  Alarm,
+  AlarmPageMeta,
+  AlarmsPage,
 } from "./defs";
 
 const defaultUrl = "http://localhost";
@@ -98,6 +102,7 @@ export interface SDKConfig {
   journalUrl?: string;
   rulesUrl?: string;
   authUrl?: string;
+  alarmsUrl?: string;
 }
 
 class SDK {
@@ -125,6 +130,8 @@ class SDK {
 
   PATs: PATs;
 
+  Alarms: Alarms;
+
   constructor({
     usersUrl = defaultUrl,
     channelsUrl = defaultUrl,
@@ -138,6 +145,7 @@ class SDK {
     journalUrl = defaultUrl,
     rulesUrl = defaultUrl,
     authUrl = defaultUrl,
+    alarmsUrl = defaultUrl,
   }: SDKConfig = {}) {
     this.users = new Users({ usersUrl, clientsUrl });
     this.domains = new Domains({ domainsUrl });
@@ -162,7 +170,8 @@ class SDK {
       authUrl,
     });
     this.Rules = new Rules({ rulesUrl });
-    this.PATs = new PATs(authUrl);
+    this.PATs = new PATs({ authUrl });
+    this.Alarms = new Alarms({ alarmsUrl });
   }
 }
 

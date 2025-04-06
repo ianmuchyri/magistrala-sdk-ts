@@ -1,7 +1,15 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
-import { PAT, PatPageMeta, PATsPage, Response, Scope, ScopesPage, ScopesPageMeta } from "./defs";
+import {
+  PAT,
+  PatPageMeta,
+  PATsPage,
+  Response,
+  Scope,
+  ScopesPage,
+  ScopesPageMeta,
+} from "./defs";
 import Errors from "./errors";
 
 /**
@@ -22,7 +30,7 @@ export default class PATs {
    * @param {object} config - Configuration object.
    * @param {string} config.authUrl - Base URL for the pats API.
    */
-  public constructor(authUrl: string) {
+  public constructor({ authUrl }: { authUrl: string }) {
     this.authUrl = new URL(authUrl);
     this.contentType = "application/json";
     this.patsEndpoint = "pats";
@@ -38,7 +46,12 @@ export default class PATs {
    * @throws {Error} - If the PAT cannot be created.
    */
 
-  public async CreatePAT(name: string, duration: string, token: string, description?: string): Promise<PAT> {
+  public async CreatePAT(
+    name: string,
+    duration: string,
+    token: string,
+    description?: string
+  ): Promise<PAT> {
     const options: RequestInit = {
       method: "POST",
       headers: {
@@ -125,10 +138,7 @@ export default class PATs {
 
     try {
       const response = await fetch(
-        new URL(
-          `${this.patsEndpoint}/${patId}`,
-          this.authUrl
-        ).toString(),
+        new URL(`${this.patsEndpoint}/${patId}`, this.authUrl).toString(),
         options
       );
       if (!response.ok) {
@@ -148,9 +158,7 @@ export default class PATs {
    * @returns {Promise<Response>} response - A promise that resolves when the PATs are deleted.
    * @throws {Error} - If the PATs cannot be deleted.
    */
-  public async DeleteAllPATs(
-    token: string
-  ) {
+  public async DeleteAllPATs(token: string) {
     const options: RequestInit = {
       method: "DELETE",
       headers: {
@@ -186,7 +194,11 @@ export default class PATs {
    * @returns {Promise<PAT>} PAT - The updated PAT object.
    * @throws {Error} - If the PAT name cannot be updated.
    */
-  public async UpdateName(name: string, patId: string, token: string): Promise<PAT> {
+  public async UpdateName(
+    name: string,
+    patId: string,
+    token: string
+  ): Promise<PAT> {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
@@ -198,10 +210,7 @@ export default class PATs {
 
     try {
       const response = await fetch(
-        new URL(
-          `${this.patsEndpoint}/${patId}/name`,
-          this.authUrl
-        ).toString(),
+        new URL(`${this.patsEndpoint}/${patId}/name`, this.authUrl).toString(),
         options
       );
       if (!response.ok) {
@@ -223,7 +232,11 @@ export default class PATs {
    * @returns {Promise<PAT>} PAT - The updated PAT object.
    * @throws {Error} - If the PAT description cannot be updated.
    */
-  public async UpdateDescription(description: string, patId: string, token: string): Promise<PAT> {
+  public async UpdateDescription(
+    description: string,
+    patId: string,
+    token: string
+  ): Promise<PAT> {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
@@ -270,10 +283,7 @@ export default class PATs {
 
     try {
       const response = await fetch(
-        new URL(
-          `${this.patsEndpoint}/${patId}`,
-          this.authUrl
-        ).toString(),
+        new URL(`${this.patsEndpoint}/${patId}`, this.authUrl).toString(),
         options
       );
       if (!response.ok) {
@@ -298,7 +308,11 @@ export default class PATs {
    * @returns {Promise<PAT>} PAT - The updated PAT object with the new secret.
    * @throws {Error} - If the secret reset fails.
    */
-  public async ResetSecret(duration: string, patId: string, token: string): Promise<PAT> {
+  public async ResetSecret(
+    duration: string,
+    patId: string,
+    token: string
+  ): Promise<PAT> {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
@@ -496,10 +510,7 @@ export default class PATs {
    * @returns {Promise<Response>} response - A promise that resolves when the scopes are deleted.
    * @throws {Error} - If the scoped cannot be deleted.
    */
-  public async DeleteAllScopes(
-    patId: string,
-    token: string
-  ) {
+  public async DeleteAllScopes(patId: string, token: string) {
     const options: RequestInit = {
       method: "DELETE",
       headers: {
@@ -510,10 +521,7 @@ export default class PATs {
 
     try {
       const response = await fetch(
-        new URL(
-          `${this.patsEndpoint}/${patId}/scope`,
-          this.authUrl
-        ).toString(),
+        new URL(`${this.patsEndpoint}/${patId}/scope`, this.authUrl).toString(),
         options
       );
       if (!response.ok) {
