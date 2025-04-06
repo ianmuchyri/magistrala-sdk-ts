@@ -106,21 +106,21 @@ export interface SDKConfig {
 }
 
 class SDK {
-  users: Users;
+  Users: Users;
 
-  domains: Domains;
+  Domains: Domains;
 
-  clients: Clients;
+  Clients: Clients;
 
-  certs: Certs;
+  Certs: Certs;
 
-  groups: Groups;
+  Groups: Groups;
 
-  channels: Channels;
+  Channels: Channels;
 
-  messages: Messages;
+  Messages: Messages;
 
-  bootstrap: Bootstrap;
+  Bootstrap: Bootstrap;
 
   Journal: Journal;
 
@@ -147,15 +147,15 @@ class SDK {
     authUrl = defaultUrl,
     alarmsUrl = defaultUrl,
   }: SDKConfig = {}) {
-    this.users = new Users({ usersUrl, clientsUrl });
-    this.domains = new Domains({ domainsUrl });
-    this.clients = new Clients({ clientsUrl });
-    this.certs = new Certs(certsUrl);
-    this.groups = new Groups({ groupsUrl });
-    this.channels = new Channels({ channelsUrl });
-    this.messages = new Messages({ readersUrl, httpAdapterUrl });
-    this.bootstrap = new Bootstrap(bootstrapUrl);
-    this.Journal = new Journal(journalUrl);
+    this.Users = new Users({ usersUrl, clientsUrl });
+    this.Domains = new Domains({ domainsUrl });
+    this.Clients = new Clients({ clientsUrl });
+    this.Certs = new Certs({ certsUrl });
+    this.Groups = new Groups({ groupsUrl });
+    this.Channels = new Channels({ channelsUrl });
+    this.Messages = new Messages({ readersUrl, httpAdapterUrl });
+    this.Bootstrap = new Bootstrap({ bootstrapUrl });
+    this.Journal = new Journal({ journalUrl });
     this.Health = new Health({
       usersUrl,
       clientsUrl,

@@ -5,19 +5,19 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   journalUrl: `${defaultUrl}:9021`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.Journal.EntityJournals(
+mgSdk.Journal.EntityJournals(
   "<entityType>",
   "<entityId>",
   domainId,
   { offset: 0, limit: 10 },
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response: ", response);
@@ -26,11 +26,7 @@ mySdk.Journal.EntityJournals(
     console.error(error);
   });
 
-mySdk.Journal.UserJournals(
-  "<userId>",
-  { offset: 0, limit: 10 },
-  token,
-)
+mgSdk.Journal.UserJournals("<userId>", { offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -38,11 +34,7 @@ mySdk.Journal.UserJournals(
     console.error(error);
   });
 
-mySdk.Journal.ClientTelemetry(
-  "<clientId>",
-  domainId,
-  token,
-)
+mgSdk.Journal.ClientTelemetry("<clientId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

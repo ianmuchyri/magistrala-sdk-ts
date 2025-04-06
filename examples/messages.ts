@@ -5,7 +5,7 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   httpAdapterUrl: `${defaultUrl}:8008`,
   readersUrl: `${defaultUrl}:9011`,
 });
@@ -13,7 +13,7 @@ const mySdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.messages
+mgSdk.Messages
   .Send(domainId, "<topic>", "<message>", "<secret>")
   .then((response: any) => {
     console.log("response: ", response);
@@ -22,7 +22,7 @@ mySdk.messages
     console.error(error);
   });
 
-mySdk.messages
+mgSdk.Messages
   .Read(domainId, "<channelId>", { offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);

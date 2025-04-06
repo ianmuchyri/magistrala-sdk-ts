@@ -5,21 +5,20 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   groupsUrl: `${defaultUrl}:9004`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.groups
-  .CreateGroup(
-    {
-      name: "<groupName>",
-    },
-    domainId,
-    token
-  )
+mgSdk.Groups.CreateGroup(
+  {
+    name: "<groupName>",
+  },
+  domainId,
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -27,8 +26,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .Group("<groupId>", domainId, token, false)
+mgSdk.Groups.Group("<groupId>", domainId, token, false)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -36,8 +34,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .Groups({ offset: 0, limit: 10 }, domainId, token)
+mgSdk.Groups.Groups({ offset: 0, limit: 10 }, domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -45,15 +42,14 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .UpdateGroup(
-    {
-      name: "<groupName>",
-      id: "<groupId>",
-    },
-    domainId,
-    token
-  )
+mgSdk.Groups.UpdateGroup(
+  {
+    name: "<groupName>",
+    id: "<groupId>",
+  },
+  domainId,
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -61,8 +57,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .EnableGroup("<groupId>", domainId, token)
+mgSdk.Groups.EnableGroup("<groupId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -70,8 +65,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DisableGroup("<groupId>", domainId, token)
+mgSdk.Groups.DisableGroup("<groupId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -79,8 +73,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteGroup("<groupId>", domainId, token)
+mgSdk.Groups.DeleteGroup("<groupId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -88,8 +81,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .AddParentGroup("<groupId>", domainId, "<parentId>", token)
+mgSdk.Groups.AddParentGroup("<groupId>", domainId, "<parentId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -97,8 +89,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .RetrieveGroupHierarchy("<groupId>", domainId, { direction: 1 }, token)
+mgSdk.Groups.RetrieveGroupHierarchy(
+  "<groupId>",
+  domainId,
+  { direction: 1 },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -106,8 +102,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .RemoveParentGroup("<groupId>", domainId, token)
+mgSdk.Groups.RemoveParentGroup("<groupId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -115,8 +110,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .AddChildrenGroups("<groupId>", domainId, ["<groupId>", "<groupId>"], token)
+mgSdk.Groups.AddChildrenGroups(
+  "<groupId>",
+  domainId,
+  ["<groupId>", "<groupId>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -124,13 +123,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .RemoveChildrenGroups(
-    "<groupId>",
-    domainId,
-    ["<groupId>", "<groupId>"],
-    token
-  )
+mgSdk.Groups.RemoveChildrenGroups(
+  "<groupId>",
+  domainId,
+  ["<groupId>", "<groupId>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -138,8 +136,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .RemoveAllChildrenGroups("<groupId>", domainId, token)
+mgSdk.Groups.RemoveAllChildrenGroups("<groupId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -147,8 +144,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListChildrenGroups("<groupId>", domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Groups.ListChildrenGroups(
+  "<groupId>",
+  domainId,
+  { offset: 0, limit: 10 },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -156,8 +157,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListGroupActions(domainId, token)
+mgSdk.Groups.ListGroupActions(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -165,8 +165,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .CreateGroupRole("<groupId>", domainId, "<roleName>", token)
+mgSdk.Groups.CreateGroupRole("<groupId>", domainId, "<roleName>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -174,8 +173,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListGroupRoles("<groupId>", domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Groups.ListGroupRoles(
+  "<groupId>",
+  domainId,
+  { offset: 0, limit: 10 },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -183,8 +186,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ViewGroupRole("<groupId>", domainId, "<roleId>", token)
+mgSdk.Groups.ViewGroupRole("<groupId>", domainId, "<roleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -192,14 +194,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .UpdateGroupRole(
-    "<groupId>",
-    domainId,
-    "<roleId>",
-    { name: "<updatedRoleName>" },
-    token
-  )
+mgSdk.Groups.UpdateGroupRole(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  { name: "<updatedRoleName>" },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -207,8 +208,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteGroupRole("<groupId>", domainId, "<roleId>", token)
+mgSdk.Groups.DeleteGroupRole("<groupId>", domainId, "<roleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -216,14 +216,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .AddGroupRoleActions(
-    "<groupId>",
-    domainId,
-    "<roleId>",
-    ["<action>", "<action>"],
-    token
-  )
+mgSdk.Groups.AddGroupRoleActions(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  ["<action>", "<action>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -231,8 +230,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListGroupRoleActions("<groupId>", domainId, "<roleId>", token)
+mgSdk.Groups.ListGroupRoleActions("<groupId>", domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -240,14 +238,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteGroupRoleActions(
-    "<groupId>",
-    domainId,
-    "<roleId>",
-    ["<action>"],
-    token
-  )
+mgSdk.Groups.DeleteGroupRoleActions(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  ["<action>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -255,8 +252,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteAllGroupRoleActions("<groupId>", domainId, "<roleId>", token)
+mgSdk.Groups.DeleteAllGroupRoleActions("<groupId>", domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -264,8 +260,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .AddGroupRoleMembers("<groupId>", domainId, "<roleId>", ["<userId>"], token)
+mgSdk.Groups.AddGroupRoleMembers(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  ["<userId>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -273,14 +274,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListGroupRoleMembers(
-    "<groupId>",
-    domainId,
-    "<roleId>",
-    { offset: 0, limit: 10 },
-    token
-  )
+mgSdk.Groups.ListGroupRoleMembers(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  { offset: 0, limit: 10 },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -288,14 +288,13 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteGroupRoleMembers(
-    "<groupId>",
-    domainId,
-    "<roleId>",
-    ["<userId>"],
-    token
-  )
+mgSdk.Groups.DeleteGroupRoleMembers(
+  "<groupId>",
+  domainId,
+  "<roleId>",
+  ["<userId>"],
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -303,8 +302,7 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .DeleteAllGroupRoleMembers("<groupId>", domainId, "<roleId>", token)
+mgSdk.Groups.DeleteAllGroupRoleMembers("<groupId>", domainId, "<roleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -312,8 +310,12 @@ mySdk.groups
     console.error(error);
   });
 
-mySdk.groups
-  .ListGroupMembers("<groupId>", domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Groups.ListGroupMembers(
+  "<groupId>",
+  domainId,
+  { offset: 0, limit: 10 },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })

@@ -5,15 +5,17 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   domainsUrl: `${defaultUrl}:9003`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.domains
-  .CreateDomain({ name: "<domainName>", route: "<domainRoute>" }, token)
+mgSdk.Domains.CreateDomain(
+  { name: "<domainName>", route: "<domainRoute>" },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -21,8 +23,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .UpdateDomain({ name: "<domainName>", id: domainId }, token)
+mgSdk.Domains.UpdateDomain({ name: "<domainName>", id: domainId }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -30,8 +31,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .Domain(domainId, token, false)
+mgSdk.Domains.Domain(domainId, token, false)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -39,8 +39,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .Domains({ offset: 0, limit: 10 }, token)
+mgSdk.Domains.Domains({ offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -48,8 +47,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListUserDomains("<userId>", { offset: 0, limit: 10 }, token)
+mgSdk.Domains.ListUserDomains("<userId>", { offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -57,8 +55,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .EnableDomain(domainId, token)
+mgSdk.Domains.EnableDomain(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -66,8 +63,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DisableDomain(domainId, token)
+mgSdk.Domains.DisableDomain(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -75,8 +71,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .FreezeDomain(domainId, token)
+mgSdk.Domains.FreezeDomain(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -84,8 +79,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainActions(token)
+mgSdk.Domains.ListDomainActions(token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -93,8 +87,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .CreateDomainRole(domainId, "<roleName>", token)
+mgSdk.Domains.CreateDomainRole(domainId, "<roleName>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -102,8 +95,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainRoles(domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Domains.ListDomainRoles(domainId, { offset: 0, limit: 10 }, token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -111,8 +103,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ViewDomainRole(domainId, "<roleId>", token)
+mgSdk.Domains.ViewDomainRole(domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -120,8 +111,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .UpdateDomainRole(domainId, "<roleId>", { name: "<updatedRoleName>" }, token)
+mgSdk.Domains.UpdateDomainRole(
+  domainId,
+  "<roleId>",
+  { name: "<updatedRoleName>" },
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -129,8 +124,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteDomainRole(domainId, "<roleId>", token)
+mgSdk.Domains.DeleteDomainRole(domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -138,8 +132,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .AddDomainRoleActions(domainId, "<roleId>", ["<action>", "<action>"], token)
+mgSdk.Domains.AddDomainRoleActions(
+  domainId,
+  "<roleId>",
+  ["<action>", "<action>"],
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -147,8 +145,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainRoleActions(domainId, "<roleId>", token)
+mgSdk.Domains.ListDomainRoleActions(domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -156,13 +153,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteDomainRoleActions(
-    domainId,
-    "<roleId>",
-    ["<action>", "<action>"],
-    token
-  )
+mgSdk.Domains.DeleteDomainRoleActions(
+  domainId,
+  "<roleId>",
+  ["<action>", "<action>"],
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -170,8 +166,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteAllDomainRoleActions(domainId, "<roleId>", token)
+mgSdk.Domains.DeleteAllDomainRoleActions(domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -179,8 +174,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .AddDomainRoleMembers(domainId, "<roleId>", ["<userId>", "<userId>"], token)
+mgSdk.Domains.AddDomainRoleMembers(
+  domainId,
+  "<roleId>",
+  ["<userId>", "<userId>"],
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -188,8 +187,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainRoleMembers(domainId, "<roleId>", { offset: 0, limit: 10 }, token)
+mgSdk.Domains.ListDomainRoleMembers(
+  domainId,
+  "<roleId>",
+  { offset: 0, limit: 10 },
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -197,13 +200,12 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteDomainRoleMembers(
-    domainId,
-    "<roleId>",
-    ["<userId>", "<userId>"],
-    token
-  )
+mgSdk.Domains.DeleteDomainRoleMembers(
+  domainId,
+  "<roleId>",
+  ["<userId>", "<userId>"],
+  token
+)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -211,8 +213,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteAllDomainRoleMembers(domainId, "<roleId>", token)
+mgSdk.Domains.DeleteAllDomainRoleMembers(domainId, "<roleId>", token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -220,8 +221,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainMembers(domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Domains.ListDomainMembers(domainId, { offset: 0, limit: 10 }, token)
   .then((response) => {
     console.log("response: ", response);
   })
@@ -229,8 +229,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .SendInvitation("<userId>", domainId, "<roleId>", token)
+mgSdk.Domains.SendInvitation("<userId>", domainId, "<roleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -238,8 +237,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ViewInvitation("<userId>", domainId, token)
+mgSdk.Domains.ViewInvitation("<userId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -247,15 +245,14 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListDomainInvitations(
-    {
-      limit: 10,
-      offset: 0,
-    },
-    domainId,
-    token
-  )
+mgSdk.Domains.ListDomainInvitations(
+  {
+    limit: 10,
+    offset: 0,
+  },
+  domainId,
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -263,14 +260,13 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .ListUserInvitations(
-    {
-      limit: 10,
-      offset: 0,
-    },
-    token
-  )
+mgSdk.Domains.ListUserInvitations(
+  {
+    limit: 10,
+    offset: 0,
+  },
+  token
+)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -278,8 +274,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .AcceptInvitation(domainId, token)
+mgSdk.Domains.AcceptInvitation(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -287,8 +282,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .RejectInvitation(domainId, token)
+mgSdk.Domains.RejectInvitation(domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -296,8 +290,7 @@ mySdk.domains
     console.error(error);
   });
 
-mySdk.domains
-  .DeleteInvitation("<userId>", domainId, token)
+mgSdk.Domains.DeleteInvitation("<userId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

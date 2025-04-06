@@ -5,14 +5,14 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   bootstrapUrl: `${defaultUrl}:9013`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.bootstrap.AddBootstrap(
+mgSdk.Bootstrap.AddBootstrap(
   {
     external_id: "<externalId>",
     external_key: "externalKey",
@@ -20,7 +20,7 @@ mySdk.bootstrap.AddBootstrap(
     name: "<bootstrapName>",
   },
   domainId,
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response:", response);
@@ -29,7 +29,7 @@ mySdk.bootstrap.AddBootstrap(
     console.error(error);
   });
 
-mySdk.bootstrap.Whitelist(
+mgSdk.Bootstrap.Whitelist(
   {
     external_id: "<externalId>",
     external_key: "<externalKey>",
@@ -37,7 +37,7 @@ mySdk.bootstrap.Whitelist(
     name: "<bootstrapName>",
   },
   domainId,
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response:", response);
@@ -46,13 +46,13 @@ mySdk.bootstrap.Whitelist(
     console.error(error);
   });
 
-mySdk.bootstrap.UpdateBootstrap(
+mgSdk.Bootstrap.UpdateBootstrap(
   {
     name: "<updatedBootstrapName>",
     client_id: "<clientId>",
   },
   domainId,
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response:", response);
@@ -61,11 +61,7 @@ mySdk.bootstrap.UpdateBootstrap(
     console.error(error);
   });
 
-mySdk.bootstrap.ViewBootstrap(
-  "<clientId>",
-  domainId,
-  token,
-)
+mgSdk.Bootstrap.ViewBootstrap("<clientId>", domainId, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -73,7 +69,7 @@ mySdk.bootstrap.ViewBootstrap(
     console.error(error);
   });
 
-mySdk.bootstrap.UpdateBootstrapCerts(
+mgSdk.Bootstrap.UpdateBootstrapCerts(
   {
     client_id: "<clientId>",
     client_cert: "<clientCert>",
@@ -81,7 +77,7 @@ mySdk.bootstrap.UpdateBootstrapCerts(
     ca_cert: "<caCert>",
   },
   domainId,
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response:", response);
@@ -90,11 +86,7 @@ mySdk.bootstrap.UpdateBootstrapCerts(
     console.error(error);
   });
 
-mySdk.bootstrap.DeleteBootstrap(
-  "<clientId>",
-  domainId,
-  token,
-)
+mgSdk.Bootstrap.DeleteBootstrap("<clientId>", domainId, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -102,10 +94,7 @@ mySdk.bootstrap.DeleteBootstrap(
     console.error(error);
   });
 
-mySdk.bootstrap.Bootstrap(
-  "externalId",
-  "externalKey",
-)
+mgSdk.Bootstrap.Bootstrap("externalId", "externalKey")
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -113,11 +102,7 @@ mySdk.bootstrap.Bootstrap(
     console.error(error);
   });
 
-mySdk.bootstrap.Bootstraps(
-  { offset: 0, limit: 10 },
-  domainId,
-  token,
-)
+mgSdk.Bootstrap.Bootstraps({ offset: 0, limit: 10 }, domainId, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -125,11 +110,11 @@ mySdk.bootstrap.Bootstraps(
     console.error(error);
   });
 
-mySdk.bootstrap.UpdateBootstrapConnection(
+mgSdk.Bootstrap.UpdateBootstrapConnection(
   "<clientId>",
   domainId,
   ["<channelId>", "<channelId2>"],
-  token,
+  token
 )
   .then((response: any) => {
     console.log("response:", response);
@@ -138,11 +123,7 @@ mySdk.bootstrap.UpdateBootstrapConnection(
     console.error(error);
   });
 
-mySdk.bootstrap.SecureBootstrap(
-  "<externalId>",
-  "<externalKey>",
-  "<cryptoKey>",
-)
+mgSdk.Bootstrap.SecureBootstrap("<externalId>", "<externalKey>", "<cryptoKey>")
   .then((response: any) => {
     console.log("response:", response);
   })

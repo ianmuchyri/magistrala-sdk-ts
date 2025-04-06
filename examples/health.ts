@@ -5,11 +5,10 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   usersUrl: `${defaultUrl}:9002`,
   clientsUrl: `${defaultUrl}:9006`,
   channelsUrl: `${defaultUrl}:9005`,
-  invitationsUrl: `${defaultUrl}:9020`,
   journalUrl: `${defaultUrl}:9021`,
   httpAdapterUrl: `${defaultUrl}:8008`,
   readersUrl: `${defaultUrl}:9011`,
@@ -20,7 +19,7 @@ const mySdk = new SDK({
 });
 
 // Clients service Health
-mySdk.Health.Health("clients")
+mgSdk.Health.Health("clients")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -29,7 +28,7 @@ mySdk.Health.Health("clients")
   });
 
 // Users service Health
-mySdk.Health.Health("users")
+mgSdk.Health.Health("users")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -38,7 +37,7 @@ mySdk.Health.Health("users")
   });
 
 // Channels service Health
-mySdk.Health.Health("channels")
+mgSdk.Health.Health("channels")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -47,7 +46,7 @@ mySdk.Health.Health("channels")
   });
 
 // Bootstrap service Health
-mySdk.Health.Health("bootstrap")
+mgSdk.Health.Health("bootstrap")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -56,7 +55,7 @@ mySdk.Health.Health("bootstrap")
   });
 
 // Certs service Health
-mySdk.Health.Health("certs")
+mgSdk.Health.Health("certs")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -65,7 +64,7 @@ mySdk.Health.Health("certs")
   });
 
 // Reader service Health
-mySdk.Health.Health("reader")
+mgSdk.Health.Health("reader")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -74,7 +73,7 @@ mySdk.Health.Health("reader")
   });
 
 // Http Adapter service Health
-mySdk.Health.Health("http-adapter")
+mgSdk.Health.Health("http-adapter")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -83,7 +82,7 @@ mySdk.Health.Health("http-adapter")
   });
 
 // Journal service Health
-mySdk.Health.Health("journal")
+mgSdk.Health.Health("journal")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -92,7 +91,7 @@ mySdk.Health.Health("journal")
   });
 
 // Invitations service Health
-mySdk.Health.Health("invitations")
+mgSdk.Health.Health("invitations")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -101,7 +100,7 @@ mySdk.Health.Health("invitations")
   });
 
 // Domains service Health
-mySdk.Health.Health("domains")
+mgSdk.Health.Health("domains")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -110,7 +109,7 @@ mySdk.Health.Health("domains")
   });
 
 // Groups service Health
-mySdk.Health.Health("groups")
+mgSdk.Health.Health("groups")
   .then((response: any) => {
     console.log("response: ", response);
   })

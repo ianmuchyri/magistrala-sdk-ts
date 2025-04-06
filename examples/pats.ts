@@ -5,19 +5,14 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   authUrl: `${defaultUrl}:9001`,
 });
 
 const token = "<token>";
 const patId = "<patId>";
 
-mySdk.PATs.CreatePAT(
-  "<name>",
-  "<duration>",
-  token,
-  "<description>",
-)
+mgSdk.PATs.CreatePAT("<name>", "<duration>", token, "<description>")
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -25,7 +20,7 @@ mySdk.PATs.CreatePAT(
     console.error(error);
   });
 
-mySdk.PATs.ListPATS({ offset: 0, limit: 10 }, token)
+mgSdk.PATs.ListPATS({ offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -33,7 +28,7 @@ mySdk.PATs.ListPATS({ offset: 0, limit: 10 }, token)
     console.error(error);
   });
 
-mySdk.PATs.DeleteAllPATs(token)
+mgSdk.PATs.DeleteAllPATs(token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -41,7 +36,7 @@ mySdk.PATs.DeleteAllPATs(token)
     console.error(error);
   });
 
-mySdk.PATs.ViewPAT(patId, token)
+mgSdk.PATs.ViewPAT(patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -49,7 +44,7 @@ mySdk.PATs.ViewPAT(patId, token)
     console.error(error);
   });
 
-mySdk.PATs.UpdateName("<patName>", patId, token)
+mgSdk.PATs.UpdateName("<patName>", patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -57,7 +52,7 @@ mySdk.PATs.UpdateName("<patName>", patId, token)
     console.error(error);
   });
 
-mySdk.PATs.UpdateDescription("<patDescription>", patId, token)
+mgSdk.PATs.UpdateDescription("<patDescription>", patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -65,7 +60,7 @@ mySdk.PATs.UpdateDescription("<patDescription>", patId, token)
     console.error(error);
   });
 
-mySdk.PATs.DeletePAT(patId, token)
+mgSdk.PATs.DeletePAT(patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -73,7 +68,7 @@ mySdk.PATs.DeletePAT(patId, token)
     console.error(error);
   });
 
-mySdk.PATs.ResetSecret("<duration>", patId, token)
+mgSdk.PATs.ResetSecret("<duration>", patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -81,7 +76,7 @@ mySdk.PATs.ResetSecret("<duration>", patId, token)
     console.error(error);
   });
 
-mySdk.PATs.RevokePAT(patId, token)
+mgSdk.PATs.RevokePAT(patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -89,14 +84,15 @@ mySdk.PATs.RevokePAT(patId, token)
     console.error(error);
   });
 
-mySdk.PATs.AddScope(
+mgSdk.PATs.AddScope(
   [
     {
       optional_domain_id: "<domainId>",
       entity_type: "groups",
       operation: "delete",
-      entity_id: "*"
-    }],
+      entity_id: "*",
+    },
+  ],
   patId,
   token
 )
@@ -107,7 +103,7 @@ mySdk.PATs.AddScope(
     console.error(error);
   });
 
-mySdk.PATs.ListScopes(patId, { offset: 0, limit: 10 }, token)
+mgSdk.PATs.ListScopes(patId, { offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -115,7 +111,7 @@ mySdk.PATs.ListScopes(patId, { offset: 0, limit: 10 }, token)
     console.error(error);
   });
 
-mySdk.PATs.DeleteScopes(patId, ["<scopeId>"], token)
+mgSdk.PATs.DeleteScopes(patId, ["<scopeId>"], token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -123,7 +119,7 @@ mySdk.PATs.DeleteScopes(patId, ["<scopeId>"], token)
     console.error(error);
   });
 
-mySdk.PATs.DeleteAllScopes(patId, token)
+mgSdk.PATs.DeleteAllScopes(patId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

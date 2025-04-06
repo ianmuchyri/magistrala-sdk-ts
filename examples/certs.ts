@@ -5,20 +5,14 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   certsUrl: `${defaultUrl}:9019`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.certs
-  .IssueCert(
-    "<clientId>",
-    "<valid>",
-    domainId,
-    token,
-  )
+mgSdk.Certs.IssueCert("<clientId>", "<valid>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -26,12 +20,7 @@ mySdk.certs
     console.error(error);
   });
 
-mySdk.certs
-  .ViewCertByClient(
-    "<clientId>",
-    domainId,
-    token,
-  )
+mgSdk.Certs.ViewCertByClient("<clientId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -39,12 +28,7 @@ mySdk.certs
     console.error(error);
   });
 
-mySdk.certs
-  .ViewCert(
-    "<certID>",
-    domainId,
-    token,
-  )
+mgSdk.Certs.ViewCert("<certID>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -52,12 +36,7 @@ mySdk.certs
     console.error(error);
   });
 
-mySdk.certs
-  .RevokeCert(
-    "<clientId>",
-    domainId,
-    token,
-  )
+mgSdk.Certs.RevokeCert("<clientId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

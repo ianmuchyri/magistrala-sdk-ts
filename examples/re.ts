@@ -5,14 +5,14 @@ import SDK from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
-const mySdk = new SDK({
+const mgSdk = new SDK({
   rulesUrl: `${defaultUrl}:9008`,
 });
 
 const token = "<token>";
 const domainId = "<domainId>";
 
-mySdk.Rules.CreateRule({ name: "<ruleName>" }, domainId, token)
+mgSdk.Rules.CreateRule({ name: "<ruleName>" }, domainId, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -20,7 +20,7 @@ mySdk.Rules.CreateRule({ name: "<ruleName>" }, domainId, token)
     console.error(error);
   });
 
-mySdk.Rules.ListRules({ offset: 0, limit: 10 }, domainId, token)
+mgSdk.Rules.ListRules({ offset: 0, limit: 10 }, domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -28,7 +28,7 @@ mySdk.Rules.ListRules({ offset: 0, limit: 10 }, domainId, token)
     console.error(error);
   });
 
-mySdk.Rules.ViewRule("<ruleId>", domainId, token)
+mgSdk.Rules.ViewRule("<ruleId>", domainId, token)
   .then((response: any) => {
     console.log(response);
   })
@@ -36,7 +36,7 @@ mySdk.Rules.ViewRule("<ruleId>", domainId, token)
     console.error(error);
   });
 
-mySdk.Rules.UpdateRule(
+mgSdk.Rules.UpdateRule(
   {
     id: "<ruleId>",
     name: "<updatedName>",
@@ -52,7 +52,7 @@ mySdk.Rules.UpdateRule(
     console.error(error);
   });
 
-mySdk.Rules.DeleteRule("<ruleId>", domainId, token)
+mgSdk.Rules.DeleteRule("<ruleId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -60,7 +60,7 @@ mySdk.Rules.DeleteRule("<ruleId>", domainId, token)
     console.error(error);
   });
 
-mySdk.Rules.DisableRule("<ruleId>", domainId, token)
+mgSdk.Rules.DisableRule("<ruleId>", domainId, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -68,7 +68,7 @@ mySdk.Rules.DisableRule("<ruleId>", domainId, token)
     console.error(error);
   });
 
-mySdk.Rules.EnableRule("<ruleId>", domainId, token)
+mgSdk.Rules.EnableRule("<ruleId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

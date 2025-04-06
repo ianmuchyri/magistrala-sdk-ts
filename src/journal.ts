@@ -1,13 +1,17 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ClientTelemetry, JournalsPage, JournalsPageMetadata } from "./defs";
+import type {
+  ClientTelemetry,
+  JournalsPage,
+  JournalsPageMetadata,
+} from "./defs";
 import Errors from "./errors";
 
 /**
-* @class Journal
-* Handles interactions with Journal API.
-*/
+ * @class Journal
+ * Handles interactions with Journal API.
+ */
 export default class Journal {
   private readonly journalsUrl: URL;
 
@@ -21,22 +25,22 @@ export default class Journal {
    * @param {object} config - Configuration object.
    * @param {string} config.journalsUrl - Base URL for the journal API.
    */
-  public constructor(journalsUrl: string) {
-    this.journalsUrl = new URL(journalsUrl);
+  public constructor({ journalUrl }: { journalUrl: string }) {
+    this.journalsUrl = new URL(journalUrl);
     this.contentType = "application/json";
     this.journalsEndpoint = "journal";
   }
 
   /**
-  * @method EntityJournals - Retrieve entity journals by entity id matching the provided query parameters.
-  * @param {string} entityType - Entity type i.e client, channel or group.
-  * @param {string} entityId - The unique ID of the entity.
-  * @param {string} domainId - The unique ID of the domain.
-  * @param {JournalsPageMetadata} queryParams - Query parameters for the request.
-  * @param {string} token - Authorization token.
-  * @returns {Promise<JournalsPage>} journalsPage - A page of journals.
-  * @throws {Error} - If the journals cannot be fetched.
-  */
+   * @method EntityJournals - Retrieve entity journals by entity id matching the provided query parameters.
+   * @param {string} entityType - Entity type i.e client, channel or group.
+   * @param {string} entityId - The unique ID of the entity.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {JournalsPageMetadata} queryParams - Query parameters for the request.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<JournalsPage>} journalsPage - A page of journals.
+   * @throws {Error} - If the journals cannot be fetched.
+   */
   public async EntityJournals(
     entityType: string,
     entityId: string,
@@ -79,13 +83,13 @@ export default class Journal {
   }
 
   /**
-  * @method UserJournals - Retrieve user journals by user id matching the provided query parameters.
-  * @param {string} userId - The unique ID of the user.
-  * @param {JournalsPageMetadata} queryParams - Query parameters for the request.
-  * @param {string} token - Authorization token.
-  * @returns {Promise<JournalsPage>} journalsPage - A page of journals.
-  * @throws {Error} - If the journals cannot be fetched.
-  */
+   * @method UserJournals - Retrieve user journals by user id matching the provided query parameters.
+   * @param {string} userId - The unique ID of the user.
+   * @param {JournalsPageMetadata} queryParams - Query parameters for the request.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<JournalsPage>} journalsPage - A page of journals.
+   * @throws {Error} - If the journals cannot be fetched.
+   */
   public async UserJournals(
     userId: string,
     queryParams: JournalsPageMetadata,
@@ -105,9 +109,7 @@ export default class Journal {
     try {
       const response = await fetch(
         new URL(
-          `${
-            this.journalsEndpoint
-          }/user/${userId}?${new URLSearchParams(
+          `${this.journalsEndpoint}/user/${userId}?${new URLSearchParams(
             stringParams
           ).toString()}`,
           this.journalsUrl
@@ -126,13 +128,13 @@ export default class Journal {
   }
 
   /**
-  * @method ClientTelemetry - Retrieves client telemetry.
-  * @param {string} clientId - The unique ID of the client.
-  * @param {string} token - Authorization token.
-  * @param {string} domainId - The unique ID of the domain.
-  * @returns {Promise<ClientTelemetry>} clientTelemetry - A client telemetry interface.
-  * @throws {Error} - If client telemetry cannot be fetched.
-  */
+   * @method ClientTelemetry - Retrieves client telemetry.
+   * @param {string} clientId - The unique ID of the client.
+   * @param {string} token - Authorization token.
+   * @param {string} domainId - The unique ID of the domain.
+   * @returns {Promise<ClientTelemetry>} clientTelemetry - A client telemetry interface.
+   * @throws {Error} - If client telemetry cannot be fetched.
+   */
   public async ClientTelemetry(
     clientId: string,
     domainId: string,
@@ -148,9 +150,7 @@ export default class Journal {
     try {
       const response = await fetch(
         new URL(
-          `${domainId}/${
-            this.journalsEndpoint
-          }/client/${clientId}/telemetry`,
+          `${domainId}/${this.journalsEndpoint}/client/${clientId}/telemetry`,
           this.journalsUrl
         ).toString(),
         options
