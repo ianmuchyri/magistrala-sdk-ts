@@ -95,21 +95,21 @@ describe("Channels", () => {
   test("Channel should retrieve a channel", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.Channel(channelId, domainId, token);
+    const response = await sdk.Channels.Channel(channelId, domainId, token);
     expect(response).toEqual(channel);
   });
 
   test("Create channel should create a channel", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.CreateChannel(channel, domainId, token);
+    const response = await sdk.Channels.CreateChannel(channel, domainId, token);
     expect(response).toEqual(channel);
   });
 
   test("Create channels should create multiple channels", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channels));
 
-    const response = await sdk.channels.CreateChannels(
+    const response = await sdk.Channels.CreateChannels(
       channels,
       domainId,
       token
@@ -120,14 +120,14 @@ describe("Channels", () => {
   test("Channels should return a list of channels", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channelsPage));
 
-    const response = await sdk.channels.Channels(queryParams, domainId, token);
+    const response = await sdk.Channels.Channels(queryParams, domainId, token);
     expect(response).toEqual(channelsPage);
   });
 
   test("Update channel name and metadata should update a channel's name and metadata", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.UpdateChannelNameAndMetadata(
+    const response = await sdk.Channels.UpdateChannelNameAndMetadata(
       channel,
       domainId,
       token
@@ -138,7 +138,7 @@ describe("Channels", () => {
   test("Update channel tags should update channel's tags", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.UpdateChannelTags(
+    const response = await sdk.Channels.UpdateChannelTags(
       channel,
       domainId,
       token
@@ -149,7 +149,7 @@ describe("Channels", () => {
   test("Enable channel should enable a channel", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.EnableChannel(
+    const response = await sdk.Channels.EnableChannel(
       channelId,
       domainId,
       token
@@ -160,7 +160,7 @@ describe("Channels", () => {
   test("Disable channel should disable a channel", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(channel));
 
-    const response = await sdk.channels.DisableChannel(
+    const response = await sdk.Channels.DisableChannel(
       channelId,
       domainId,
       token
@@ -175,7 +175,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(deleteResponse));
 
-    const response = await sdk.channels.DeleteChannel(
+    const response = await sdk.Channels.DeleteChannel(
       channelId,
       domainId,
       token
@@ -190,7 +190,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(connectClientResponse));
 
-    const response = await sdk.channels.ConnectClient(
+    const response = await sdk.Channels.ConnectClient(
       clientIds,
       channelId,
       connectionType,
@@ -207,7 +207,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(DisconnectClientResponse));
 
-    const response = await sdk.channels.DisconnectClient(
+    const response = await sdk.Channels.DisconnectClient(
       clientIds,
       channelId,
       connectionType,
@@ -224,7 +224,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(connectResponse));
 
-    const response = await sdk.channels.Connect(
+    const response = await sdk.Channels.Connect(
       clientIds,
       channelIds,
       connectionType,
@@ -241,7 +241,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(DisconnectResponse));
 
-    const response = await sdk.channels.Disconnect(
+    const response = await sdk.Channels.Disconnect(
       clientIds,
       channelIds,
       connectionType,
@@ -258,7 +258,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(ChannelParentsResponse));
 
-    const response = await sdk.channels.SetChannelParentGroup(
+    const response = await sdk.Channels.SetChannelParentGroup(
       domainId,
       channelId,
       groupId,
@@ -274,7 +274,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(ChannelParentsResponse));
 
-    const response = await sdk.channels.DeleteChannelParentGroup(
+    const response = await sdk.Channels.DeleteChannelParentGroup(
       domainId,
       channelId,
       token
@@ -288,14 +288,14 @@ describe("Channels", () => {
       JSON.stringify({ available_actions: availableActions })
     );
 
-    const response = await sdk.channels.ListChannelActions(domainId, token);
+    const response = await sdk.Channels.ListChannelActions(domainId, token);
     expect(response).toEqual(availableActions);
   });
 
   test("Create channel role should create a new role and return it", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(role));
 
-    const response = await sdk.channels.CreateChannelRole(
+    const response = await sdk.Channels.CreateChannelRole(
       channelId,
       roleName,
       domainId,
@@ -310,7 +310,7 @@ describe("Channels", () => {
     const rolesPage = { roles: [role], total: 1, offset: 0, limit: 10 };
     fetchMock.mockResponseOnce(JSON.stringify(rolesPage));
 
-    const response = await sdk.channels.ListChannelRoles(
+    const response = await sdk.Channels.ListChannelRoles(
       channelId,
       domainId,
       { offset: 0, limit: 10 },
@@ -322,7 +322,7 @@ describe("Channels", () => {
   test("View channel role should return details of a specific role", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(role));
 
-    const response = await sdk.channels.ViewChannelRole(
+    const response = await sdk.Channels.ViewChannelRole(
       channelId,
       domainId,
       roleId,
@@ -335,7 +335,7 @@ describe("Channels", () => {
     const updatedRole = { ...role, actions: [...role.actions, "execute"] };
     fetchMock.mockResponseOnce(JSON.stringify(updatedRole));
 
-    const response = await sdk.channels.UpdateChannelRole(
+    const response = await sdk.Channels.UpdateChannelRole(
       channelId,
       domainId,
       roleId,
@@ -352,7 +352,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.channels.DeleteChannelRole(
+    const response = await sdk.Channels.DeleteChannelRole(
       channelId,
       domainId,
       roleId,
@@ -365,7 +365,7 @@ describe("Channels", () => {
     const updatedActions = [...actions, "execute"];
     fetchMock.mockResponseOnce(JSON.stringify({ actions: updatedActions }));
 
-    const response = await sdk.channels.AddChannelRoleActions(
+    const response = await sdk.Channels.AddChannelRoleActions(
       channelId,
       domainId,
       roleId,
@@ -378,7 +378,7 @@ describe("Channels", () => {
   test("List channel role actions should return actions of a specific role", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ actions }));
 
-    const response = await sdk.channels.ListChannelRoleActions(
+    const response = await sdk.Channels.ListChannelRoleActions(
       channelId,
       domainId,
       roleId,
@@ -394,7 +394,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.channels.DeleteChannelRoleActions(
+    const response = await sdk.Channels.DeleteChannelRoleActions(
       channelId,
       domainId,
       roleId,
@@ -411,7 +411,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.channels.DeleteAllChannelRoleActions(
+    const response = await sdk.Channels.DeleteAllChannelRoleActions(
       channelId,
       domainId,
       roleId,
@@ -424,7 +424,7 @@ describe("Channels", () => {
     const updatedMembers = [...members, "user3"];
     fetchMock.mockResponseOnce(JSON.stringify({ members: updatedMembers }));
 
-    const response = await sdk.channels.AddChannelRoleMembers(
+    const response = await sdk.Channels.AddChannelRoleMembers(
       channelId,
       domainId,
       roleId,
@@ -437,7 +437,7 @@ describe("Channels", () => {
   test("List channel role members should return members of a specific role", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(membersPage));
 
-    const response = await sdk.channels.ListChannelRoleMembers(
+    const response = await sdk.Channels.ListChannelRoleMembers(
       channelId,
       domainId,
       roleId,
@@ -454,7 +454,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.channels.DeleteChannelRoleMembers(
+    const response = await sdk.Channels.DeleteChannelRoleMembers(
       channelId,
       domainId,
       roleId,
@@ -471,7 +471,7 @@ describe("Channels", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.channels.DeleteAllChannelRoleMembers(
+    const response = await sdk.Channels.DeleteAllChannelRoleMembers(
       channelId,
       domainId,
       roleId,
@@ -483,7 +483,7 @@ describe("Channels", () => {
   test("List channel members should return members of a specific channel", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(membersRolePage));
 
-    const response = await sdk.channels.ListChannelMembers(
+    const response = await sdk.Channels.ListChannelMembers(
       channelId,
       domainId,
       { offset: 0, limit: 10 },

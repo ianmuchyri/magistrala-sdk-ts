@@ -49,7 +49,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(createResponse));
 
-    const response = await sdk.bootstrap.AddBootstrap(
+    const response = await sdk.Bootstrap.AddBootstrap(
       bootstrap,
       domainId,
       token,
@@ -64,7 +64,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(whitelistResponse));
 
-    const response = await sdk.bootstrap.Whitelist(bootstrap, domainId, token);
+    const response = await sdk.Bootstrap.Whitelist(bootstrap, domainId, token);
     expect(response).toEqual(whitelistResponse);
   });
 
@@ -75,7 +75,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(updateResponse));
 
-    const response = await sdk.bootstrap.UpdateBootstrap(
+    const response = await sdk.Bootstrap.UpdateBootstrap(
       bootstrap,
       domainId,
       token,
@@ -86,7 +86,7 @@ describe("Bootstraps", () => {
   test("View bootstrap should view a bootstrap configuration", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(bootstrap));
 
-    const response = await sdk.bootstrap.ViewBootstrap(
+    const response = await sdk.Bootstrap.ViewBootstrap(
       clientId,
       domainId,
       token,
@@ -97,7 +97,7 @@ describe("Bootstraps", () => {
   test("Update bootstrap certs should update certs of a bootstrap configuration", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(bootstrap));
 
-    const response = await sdk.bootstrap.UpdateBootstrapCerts(
+    const response = await sdk.Bootstrap.UpdateBootstrapCerts(
       bootstrap,
       domainId,
       token,
@@ -112,7 +112,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(deleteResponse));
 
-    const response = await sdk.bootstrap.DeleteBootstrap(
+    const response = await sdk.Bootstrap.DeleteBootstrap(
       clientId,
       domainId,
       token,
@@ -123,14 +123,14 @@ describe("Bootstraps", () => {
   test("Bootstrap should retrieve a bootstrap configuration", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(bootstrap));
 
-    const response = await sdk.bootstrap.Bootstrap(externalId, externalKey);
+    const response = await sdk.Bootstrap.Bootstrap(externalId, externalKey);
     expect(response).toEqual(bootstrap);
   });
 
   test("Bootstraps should retrieve all bootstraps", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(bootstrapPage));
 
-    const response = await sdk.bootstrap.Bootstraps(
+    const response = await sdk.Bootstrap.Bootstraps(
       queryParams,
       domainId,
       token,
@@ -145,7 +145,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(connResponse));
 
-    const response = await sdk.bootstrap.UpdateBootstrapConnection(
+    const response = await sdk.Bootstrap.UpdateBootstrapConnection(
       clientId,
       domainId,
       channels,

@@ -599,11 +599,19 @@ export interface ScopesPageMeta extends BasicPageMeta {
   id?: string;
 }
 
+export enum AlarmStatus {
+  Reported = "reported",
+  Assigned = "assigned",
+  Resolved = "resolved",
+  Ignored = "ignored",
+  Unkown = "unkown",
+}
+
 export interface Alarm {
   id?: string;
   rule_id?: string;
   message?: string;
-  status?: Status;
+  status?: AlarmStatus;
   severity?: number;
   domain_id?: string;
   assignee_id?: string;

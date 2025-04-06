@@ -85,6 +85,7 @@ export type {
   Alarm,
   AlarmPageMeta,
   AlarmsPage,
+  AlarmStatus,
 } from "./defs";
 
 const defaultUrl = "http://localhost";
