@@ -12,24 +12,13 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Alarms.create(
-  { rule_id: "<rule_id>", message: "<message>" },
-  domainId,
-  token
-)
-  .then((response: any) => {
-    console.log("response: ", response);
-  })
-  .catch((error) => {
-    console.error("Error creating alarm: ", error);
-  });
-
 mgSdk.Alarms.list(
+  domainId,
   {
     offset: 0,
     limit: 10,
   },
-  domainId,
+
   token
 )
   .then((alarmsPage: any) => {
@@ -48,8 +37,8 @@ mgSdk.Alarms.view("<alarm_id>", domainId, token)
   });
 
 mgSdk.Alarms.update(
-  { rule_id: "<rule_id>", message: "<message>" },
   domainId,
+  { rule_id: "<rule_id>", cause: "<message>" },
   token
 )
   .then((response: any) => {
@@ -59,7 +48,7 @@ mgSdk.Alarms.update(
     console.error("Error updating alarm:", error);
   });
 
-mgSdk.Alarms.delete("<alarm_id>", domainId, token)
+mgSdk.Alarms.delete(domainId, "<alarm_id>", token)
   .then((res: any) => {
     console.log("Delete response:", res);
   })

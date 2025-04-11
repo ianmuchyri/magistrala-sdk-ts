@@ -18,7 +18,7 @@ const sdk = new Alarms({ alarmsUrl });
 const alarm: Alarm = {
   id: "12345",
   rule_id: "rule123",
-  message: "High temperature alert",
+  cause: "High temperature alert",
   status: AlarmStatus.Assigned,
 };
 
@@ -26,13 +26,13 @@ const alarms: Alarm[] = [
   {
     id: "12345",
     rule_id: "rule123",
-    message: "High temperature alert",
+    cause: "High temperature alert",
     status: AlarmStatus.Assigned,
   },
   {
     id: "12346",
     rule_id: "rule124",
-    message: "Low temperature alert",
+    cause: "Low temperature alert",
     status: AlarmStatus.Ignored,
   },
 ];
@@ -62,24 +62,17 @@ beforeEach(() => {
 });
 
 describe("Alarms", () => {
-  test("Create should create an alarm", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(alarm));
-
-    const response = await sdk.create(alarm, domainId, token);
-    expect(response).toEqual(alarm);
-  });
-
   test("List should get a list of alarms", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(alarmsPage));
 
-    const response = await sdk.list(queryParams, domainId, token);
+    const response = await sdk.list(domainId, queryParams, token);
     expect(response).toEqual(alarmsPage);
   });
 
   test("View should retrieve an alarm", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(alarm));
 
-    const response = await sdk.view(alarmId, domainId, token);
+    const response = await sdk.view(domainId, alarmId, token);
     expect(response).toEqual(alarm);
   });
 
@@ -90,14 +83,14 @@ describe("Alarms", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(updatedAlarm));
 
-    const response = await sdk.update(updatedAlarm, domainId, token);
+    const response = await sdk.update(domainId, updatedAlarm, token);
     expect(response).toEqual(updatedAlarm);
   });
 
   test("Delete should delete an alarm", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(successResponse));
 
-    const response = await sdk.delete(alarmId, domainId, token);
+    const response = await sdk.delete(domainId, alarmId, token);
     expect(response).toEqual(successResponse);
   });
 });

@@ -25,46 +25,6 @@ export default class Alarms {
   }
 
   /**
-   * Creates a new alarm.
-   * @param {Alarm} alarm - Alarm object containing rule_id, message, status, etc.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} token - Bearer token for authorization.
-   * @returns {Promise<Alarm>} - The created alarm.
-   * @throws {Error} - If the alarm creation fails.
-   */
-  public async create(
-    alarm: Alarm,
-    domainId: string,
-    token: string
-  ): Promise<Alarm> {
-    const options: RequestInit = {
-      method: "POST",
-      headers: {
-        "Content-Type": this.contentType,
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(alarm),
-    };
-    try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.alarmsEndpoint}`,
-          this.alarmsUrl
-        ).toString(),
-        options
-      );
-      if (!response.ok) {
-        const errorRes = await response.json();
-        throw Errors.HandleError(errorRes.message, response.status);
-      }
-      const newAlarm: Alarm = await response.json();
-      return newAlarm;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
    * Lists all alarms within a domain, with optional pagination/filtering.
    * @param {AlarmPageMeta} queryParams - Query parameters for pagination/filtering.
    * @param {string} domainId - Domain identifier.
@@ -73,8 +33,8 @@ export default class Alarms {
    * @throws {Error} - If the alarm list cannot be retrieved.
    */
   public async list(
-    queryParams: AlarmPageMeta,
     domainId: string,
+    queryParams: AlarmPageMeta,
     token: string
   ): Promise<AlarmsPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
@@ -119,8 +79,8 @@ export default class Alarms {
    * @throws {Error} - If the alarm cannot be fetched.
    */
   public async view(
-    alarmId: string,
     domainId: string,
+    alarmId: string,
     token: string
   ): Promise<Alarm> {
     const options: RequestInit = {
@@ -159,8 +119,8 @@ export default class Alarms {
    * @throws {Error} - If the update fails.
    */
   public async update(
-    alarm: Alarm,
     domainId: string,
+    alarm: Alarm,
     token: string
   ): Promise<Alarm> {
     const options: RequestInit = {
@@ -200,8 +160,8 @@ export default class Alarms {
    * @throws {Error} - If the delete fails.
    */
   public async delete(
-    alarmId: string,
     domainId: string,
+    alarmId: string,
     token: string
   ): Promise<Response> {
     const options: RequestInit = {
