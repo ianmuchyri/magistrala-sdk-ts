@@ -600,11 +600,10 @@ export interface ScopesPageMeta extends BasicPageMeta {
 }
 
 export enum AlarmStatus {
-  Reported = "reported",
-  Assigned = "assigned",
-  Resolved = "resolved",
-  Ignored = "ignored",
-  Unkown = "unkown",
+  Active = "active",
+  Cleared = "cleared",
+  Unknown = "unknown",
+  All = "all",
 }
 
 export interface Alarm {
