@@ -28,7 +28,7 @@ mgSdk.Alarms.list(
     console.error("Error listing alarms:", error);
   });
 
-mgSdk.Alarms.view("<alarm_id>", domainId, token)
+mgSdk.Alarms.view(domainId, "<alarm_id>", token)
   .then((alarm: any) => {
     console.log("Alarm details:", alarm);
   })
@@ -38,7 +38,10 @@ mgSdk.Alarms.view("<alarm_id>", domainId, token)
 
 mgSdk.Alarms.update(
   domainId,
-  { rule_id: "<rule_id>", cause: "<message>" },
+  {
+    id: "<alarm_id>",
+    status: "cleared",
+  },
   token
 )
   .then((response: any) => {

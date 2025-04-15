@@ -599,11 +599,7 @@ export interface ScopesPageMeta extends BasicPageMeta {
   id?: string;
 }
 
-export enum AlarmStatus {
-  Active = "active",
-  Cleared = "cleared",
-  All = "all",
-}
+export type AlarmStatus = "active" | "cleared" | "all";
 
 export interface Alarm {
   id?: string;
