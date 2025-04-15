@@ -602,7 +602,6 @@ export interface ScopesPageMeta extends BasicPageMeta {
 export enum AlarmStatus {
   Active = "active",
   Cleared = "cleared",
-  Unknown = "unknown",
   All = "all",
 }
 
