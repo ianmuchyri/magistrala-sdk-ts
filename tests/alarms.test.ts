@@ -19,7 +19,7 @@ const alarm: Alarm = {
   id: "12345",
   rule_id: "rule123",
   cause: "High temperature alert",
-  status: AlarmStatus.Assigned,
+  status: AlarmStatus.Active,
 };
 
 const alarms: Alarm[] = [
@@ -27,13 +27,13 @@ const alarms: Alarm[] = [
     id: "12345",
     rule_id: "rule123",
     cause: "High temperature alert",
-    status: AlarmStatus.Assigned,
+    status: AlarmStatus.Active,
   },
   {
     id: "12346",
     rule_id: "rule124",
     cause: "Low temperature alert",
-    status: AlarmStatus.Ignored,
+    status: AlarmStatus.Cleared,
   },
 ];
 
