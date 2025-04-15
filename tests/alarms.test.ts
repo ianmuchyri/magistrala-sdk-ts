@@ -4,7 +4,6 @@
 import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
 import Alarms from "../src/alarms";
 import {
-  AlarmStatus,
   type Alarm,
   type AlarmsPage,
   type Response,
@@ -19,7 +18,7 @@ const alarm: Alarm = {
   id: "12345",
   rule_id: "rule123",
   cause: "High temperature alert",
-  status: AlarmStatus.Active,
+  status: "active",
 };
 
 const alarms: Alarm[] = [
@@ -27,13 +26,13 @@ const alarms: Alarm[] = [
     id: "12345",
     rule_id: "rule123",
     cause: "High temperature alert",
-    status: AlarmStatus.Active,
+    status: "active",
   },
   {
     id: "12346",
     rule_id: "rule124",
     cause: "Low temperature alert",
-    status: AlarmStatus.Cleared,
+    status: "cleared",
   },
 ];
 
