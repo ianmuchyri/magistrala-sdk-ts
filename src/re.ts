@@ -208,7 +208,7 @@ export default class Rules {
         "Content-Type": this.contentType,
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(schedule),
+      body: JSON.stringify({ schedule }),
     };
 
     try {
