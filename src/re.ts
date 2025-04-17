@@ -312,7 +312,7 @@ export default class Rules {
   }
 
   /**
-   * @method disable - Disables a spcific rule.
+   * @method disable - Disables a specific rule.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} ruleId - The  unique ID of the rule.
    * @param {string} token - Authorization token.
