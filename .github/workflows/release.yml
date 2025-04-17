@@ -17,14 +17,18 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
           node-version: 20.x
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Creating .npmrc
         run: |
@@ -39,7 +43,7 @@ jobs:
         uses: changesets/action@v1
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

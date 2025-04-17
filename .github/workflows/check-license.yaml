@@ -22,7 +22,7 @@ jobs:
         run: |
           CHECK=""
           for file in $(grep -rl --exclude-dir={.git,build,.changeset} \
-            --exclude=\*.{md,json,eslintignore,prettierrc,prettierignore} \
+            --exclude=\*.{md,json,yaml,eslintignore,prettierrc,prettierignore} \
             --exclude={bundle.js,LICENSE} \
             .); do
               

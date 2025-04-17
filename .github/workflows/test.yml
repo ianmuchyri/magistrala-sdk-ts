@@ -19,18 +19,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20.x
           always-auth: false
           check-latest: true
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Run Jest tests
-        run: npm test -- --passWithNoTests
+        run: pnpm test -- --passWithNoTests
 
       - name: Lint with ESLint
-        run: npm run lint
+        run: pnpm run lint
