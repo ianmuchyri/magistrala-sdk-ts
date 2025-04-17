@@ -60,14 +60,14 @@ describe("Rules SDK", () => {
     expect(response).toEqual(rulesPage);
   });
 
-  test("view should return a rule", async () => {
+  test("View should return a rule", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(rule));
 
     const response = await sdk.Rules.view(domainId, rule.id as string, token);
     expect(response).toEqual(rule);
   });
 
-  test("update should update a rule", async () => {
+  test("Update should update a rule", async () => {
     const updatedRule: Rule = {
       ...rule,
       name: "updated rule",
@@ -79,7 +79,7 @@ describe("Rules SDK", () => {
     expect(response).toEqual(updatedRule);
   });
 
-  test("update schedule should update the schedule", async () => {
+  test("Update schedule should update the schedule", async () => {
     const updatedSchedule: Schedule = {
       start_datetime: "2025-02-07T03:14:00.000Z",
       time: "0001-01-01T07:39:44.000Z",
@@ -98,7 +98,7 @@ describe("Rules SDK", () => {
     expect(response).toEqual(rule);
   });
 
-  test("delete should delete a rule", async () => {
+  test("Delete should delete a rule", async () => {
     const successResponse = {
       status: 200,
       message: "Rule deleted successfully",
@@ -109,7 +109,7 @@ describe("Rules SDK", () => {
     expect(response).toEqual(successResponse);
   });
 
-  test("enable should enable a rule", async () => {
+  test("Enable should enable a rule", async () => {
     rule.status = "enabled";
     fetchMock.mockResponseOnce(JSON.stringify(rule));
 
@@ -117,7 +117,7 @@ describe("Rules SDK", () => {
     expect(response).toEqual(rule);
   });
 
-  test("disable should disable a rule", async () => {
+  test("Disable should disable a rule", async () => {
     rule.status = "disabled";
     fetchMock.mockResponseOnce(JSON.stringify(rule));
 
