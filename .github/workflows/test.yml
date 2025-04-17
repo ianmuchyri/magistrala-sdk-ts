@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Run Jest tests
-        run: pnpm test -- --passWithNoTests
+        run: npm test -- --passWithNoTests
 
       - name: Lint with ESLint
         run: pnpm run lint
