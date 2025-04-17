@@ -1,7 +1,7 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
-import { Rule, RulesPage, RulesPageMetadata, Response } from "./defs";
+import { Rule, RulesPage, RulesPageMetadata, Response, Schedule } from "./defs";
 import Errors from "./errors";
 
 /**
@@ -28,16 +28,16 @@ export default class Rules {
   }
 
   /**
-   * @method CreateRule - Creates a new rule
-   * @param {Rule} rule - Rule object with a containing details like name, input_channel, input_topic and logic.
+   * @method create - Creates a new rule
    * @param {string} domainId - The unique ID of the domain.
+   * @param {Rule} rule - Rule object with a containing details like name, input_channel, input_topic and logic.
    * @param {string} token - Authorization token.
    * @returns {Promise<Rule>} rule - The created rule object.
    * @throws {Error} - If the rule cannot be created.
    */
-  public async CreateRule(
-    rule: Rule,
+  public async create(
     domainId: string,
+    rule: Rule,
     token: string
   ): Promise<Rule> {
     const options: RequestInit = {
@@ -65,16 +65,16 @@ export default class Rules {
   }
 
   /**
-   * @method ViewRule - Retrieves a rule by its id.
-   * @param {string} ruleId - The unique ID of the rule.
+   * @method view - Retrieves a rule by its id.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The unique ID of the rule.
    * @param {string} token - Authorization token.
    * @returns {Promise<Rule>} rule - The requested rule object.
    * @throws {Error} - If the rule cannot be fetched.
    */
-  public async ViewRule(
-    ruleId: string,
+  public async view(
     domainId: string,
+    ruleId: string,
     token: string
   ): Promise<Rule> {
     const options: RequestInit = {
@@ -104,16 +104,16 @@ export default class Rules {
   }
 
   /**
-   * @method ListRules - Retrieves all rules matching the provided query parameters.
-   * @param {RulesPageMetadata} queryParams - Query parameters for the request.
+   * @method list - Retrieves all rules matching the provided query parameters.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {RulesPageMetadata} queryParams - Query parameters for the request.
    * @param {string} token - Authorization token.
    * @returns {Promise<RulesPage>} rulesPage - A page of rules.
    * @throws {Error} - If the rules cannot be fetched.
    */
-  public async ListRules(
-    queryParams: RulesPageMetadata,
+  public async list(
     domainId: string,
+    queryParams: RulesPageMetadata,
     token: string
   ): Promise<RulesPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
@@ -148,16 +148,16 @@ export default class Rules {
   }
 
   /**
-   * @method UpdateRule - Updates an existing rule.
-   * @param {Rule} rule - rule object with updated properties.
+   * @method update - Updates an existing rule.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {Rule} rule - rule object with updated properties.
    * @param {string} token - Authorization token.
    * @returns {Promise<Rule>} rule - The updated rule object.
    * @throws {Error} - If the rule cannot be updated.
    */
-  public async UpdateRule(
-    rule: Rule,
+  public async update(
     domainId: string,
+    rule: Rule,
     token: string
   ): Promise<Rule> {
     const options: RequestInit = {
@@ -188,16 +188,59 @@ export default class Rules {
   }
 
   /**
-   * @method DeleteRule - Deletes a rule.
-   * @param {string} ruleId - The  unique ID of the rule.
+   * @method updateSchedule - Updates the schedule for a specific rule.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The ID of the rule whose schedule is to be updated.
+   * @param {Schedule} schedule - The updated schedule object.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<Rule>} rule - The updated rule object.
+   * @throws {Error} - If the schedule cannot be updated.
+   */
+  public async updateSchedule(
+    domainId: string,
+    ruleId: string,
+    schedule: Schedule,
+    token: string
+  ): Promise<Rule> {
+    const options: RequestInit = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(schedule),
+    };
+
+    try {
+      const response = await fetch(
+        new URL(
+          `${domainId}/${this.rulesEndpoint}/${ruleId}/schedule`,
+          this.rulesUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const updatedSchedule: Rule = await response.json();
+      return updatedSchedule;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @method delete - Deletes a rule.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The  unique ID of the rule.
    * @param {string} token - Authorization token.
    * @returns {Promise<Response>} response - A promise that resolves when the rule is successfully deleted.
    * @throws {Error} - If the rule cannot be deleted.
    */
-  public async DeleteRule(
-    ruleId: string,
+  public async delete(
     domainId: string,
+    ruleId: string,
     token: string
   ): Promise<Response> {
     const options = {
@@ -230,16 +273,16 @@ export default class Rules {
   }
 
   /**
-   * @method EnableRule - Enables a previously disabled rule.
-   * @param {string} ruleId - The  unique ID of the rule.
+   * @method enable - Enables a previously disabled rule.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The  unique ID of the rule.
    * @param {string} token - Authorization token.
    * @returns {Promise<Rule>} rule - The enabled rule object.
    * @throws {Error} - If the rule cannot be enabled.
    */
-  public async EnableRule(
-    ruleId: string,
+  public async enable(
     domainId: string,
+    ruleId: string,
     token: string
   ): Promise<Rule> {
     const options = {
@@ -269,16 +312,16 @@ export default class Rules {
   }
 
   /**
-   * @method DisableRule - Disables a spcific rule.
-   * @param {string} ruleId - The  unique ID of the rule.
+   * @method disable - Disables a spcific rule.
    * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The  unique ID of the rule.
    * @param {string} token - Authorization token.
    * @returns {Promise<Rule>} rule - The disabled rule object.
    * @throws {Error} - If the rule cannot be disabled.
    */
-  public async DisableRule(
-    ruleId: string,
+  public async disable(
     domainId: string,
+    ruleId: string,
     token: string
   ): Promise<Rule> {
     const options = {

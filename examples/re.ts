@@ -12,7 +12,7 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Rules.CreateRule({ name: "<ruleName>" }, domainId, token)
+mgSdk.Rules.create(domainId, { name: "<ruleName>" }, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -20,7 +20,7 @@ mgSdk.Rules.CreateRule({ name: "<ruleName>" }, domainId, token)
     console.error(error);
   });
 
-mgSdk.Rules.ListRules({ offset: 0, limit: 10 }, domainId, token)
+mgSdk.Rules.list(domainId, { offset: 0, limit: 10 }, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -28,7 +28,7 @@ mgSdk.Rules.ListRules({ offset: 0, limit: 10 }, domainId, token)
     console.error(error);
   });
 
-mgSdk.Rules.ViewRule("<ruleId>", domainId, token)
+mgSdk.Rules.view("<ruleId>", domainId, token)
   .then((response: any) => {
     console.log(response);
   })
@@ -36,13 +36,13 @@ mgSdk.Rules.ViewRule("<ruleId>", domainId, token)
     console.error(error);
   });
 
-mgSdk.Rules.UpdateRule(
+mgSdk.Rules.update(
+  domainId,
   {
     id: "<ruleId>",
     name: "<updatedName>",
     logic: { type: 1, value: "<value>" },
   },
-  domainId,
   token
 )
   .then((response: any) => {
@@ -52,15 +52,17 @@ mgSdk.Rules.UpdateRule(
     console.error(error);
   });
 
-mgSdk.Rules.DeleteRule("<ruleId>", domainId, token)
-  .then((response: any) => {
-    console.log("response: ", response);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-mgSdk.Rules.DisableRule("<ruleId>", domainId, token)
+mgSdk.Rules.updateSchedule(
+  domainId,
+  "<ruleId>",
+  {
+    start_datetime: "2025-02-07T03:14:00.000Z",
+    time: "0001-01-01T07:39:44.000Z",
+    recurring: "daily",
+    recurring_period: 1,
+  },
+  token
+)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -68,7 +70,23 @@ mgSdk.Rules.DisableRule("<ruleId>", domainId, token)
     console.error(error);
   });
 
-mgSdk.Rules.EnableRule("<ruleId>", domainId, token)
+mgSdk.Rules.delete(domainId, "<ruleId>", token)
+  .then((response: any) => {
+    console.log("response: ", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Rules.disable(domainId, "<ruleId>", token)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Rules.enable(domainId, "<ruleId>", token)
   .then((response: any) => {
     console.log("response: ", response);
   })

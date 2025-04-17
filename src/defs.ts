@@ -471,8 +471,8 @@ export interface Script {
 export type Recurring = "daily" | "weekly" | "monthly" | "none";
 
 export interface Schedule {
-  start_datetime: Date;
-  time: Date;
+  start_datetime: string;
+  time: string;
   recurring: Recurring;
   recurring_period: number;
 }
