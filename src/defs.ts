@@ -463,7 +463,12 @@ export interface MembersPage {
   limit: number;
 }
 
-export type ScriptOutput = "channels" | "save_senml" | "alarms" | "email" | "save_remote_pg";
+export type ScriptOutput =
+  | "channels"
+  | "save_senml"
+  | "alarms"
+  | "email"
+  | "save_remote_pg";
 export interface Script {
   type: number;
   outputs: ScriptOutput[];
@@ -650,4 +655,75 @@ export interface AlarmPageMeta extends BasicPageMeta {
   assigned_by?: string;
   acknowledged_by?: string;
   resolved_by?: string;
+}
+
+export interface Report {
+  metric: Metric;
+  messages: SenMLMessage[];
+}
+
+export interface Metric {
+  channel_id?: string;
+  client_id?: string;
+  name?: string;
+  subtopic?: string;
+  protocol?: string;
+  format?: string;
+}
+
+export interface ReportPage {
+  total: number;
+  from?: Date;
+  to?: Date;
+  aggregation?: AggConfig;
+  reports: Report[];
+  pdf?: Uint8Array;
+  csv?: Uint8Array;
+}
+
+export interface AggConfig {
+  agg_type?: string;
+  interval?: string;
+}
+
+export interface MetricConfig {
+  from?: string;
+  to?: string;
+  aggregation?: AggConfig;
+}
+
+export interface Email {
+  to?: string[];
+  from?: string;
+  subject?: string;
+}
+
+export interface ReportConfig {
+  id?: string;
+  name?: string;
+  description?: string;
+  domain_id?: string;
+  schedule?: Schedule;
+  config?: MetricConfig;
+  email?: Email;
+  metrics?: Metric[];
+  status?: Status;
+  created_at?: Date;
+  created_by?: string;
+  updated_at?: Date;
+  updated_by?: string;
+}
+
+export interface ReportConfigPage {
+  offset: number;
+  limit: number;
+  total: number;
+  report_configs: ReportConfig[];
+}
+
+export interface ReportResponse {
+  pdf?: Uint8Array;
+  csv?: Uint8Array;
+  filename?: string;
+  content_type?: string;
 }

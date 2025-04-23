@@ -14,6 +14,7 @@ import Clients from "./clients";
 import Rules from "./re";
 import PATs from "./pats";
 import Alarms from "./alarms";
+import Reports from "./reports";
 
 export type {
   User,
@@ -87,6 +88,14 @@ export type {
   AlarmPageMeta,
   AlarmsPage,
   AlarmStatus,
+  Report,
+  Metric,
+  ReportPage,
+  AggConfig,
+  MetricConfig,
+  Email,
+  ReportConfig,
+  ReportConfigPage,
 } from "./defs";
 
 const defaultUrl = "http://localhost";
@@ -134,6 +143,8 @@ class SDK {
 
   Alarms: Alarms;
 
+  Reports: Reports;
+
   constructor({
     usersUrl = defaultUrl,
     channelsUrl = defaultUrl,
@@ -172,6 +183,7 @@ class SDK {
       authUrl,
     });
     this.Rules = new Rules({ rulesUrl });
+    this.Reports = new Reports({ reportsUrl: rulesUrl });
     this.PATs = new PATs({ authUrl });
     this.Alarms = new Alarms({ alarmsUrl });
   }
