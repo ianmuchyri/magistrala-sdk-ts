@@ -12,7 +12,7 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Reports.generateReport(domainId, { name: "configName" }, token)
+mgSdk.Reports.generateReport(domainId, { name: "<configName>" }, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -20,7 +20,7 @@ mgSdk.Reports.generateReport(domainId, { name: "configName" }, token)
     console.error(error);
   });
 
-mgSdk.Reports.addReportConfig(domainId, { name: "configName" }, token)
+mgSdk.Reports.addReportConfig(domainId, { name: "<configName>" }, token)
   .then((response: any) => {
     console.log("response:", response);
   })
