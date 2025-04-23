@@ -7,8 +7,8 @@ import SDK, { Rule, RulesPage, Schedule } from "../src/sdk";
 
 enableFetchMocks();
 
-const authUrl = "http://localhost";
-const sdk = new SDK({ authUrl });
+const rulesUrl = "http://localhost";
+const sdk = new SDK({ rulesUrl });
 
 describe("Rules SDK", () => {
   const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9";

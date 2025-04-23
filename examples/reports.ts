@@ -12,7 +12,7 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Rules.create(domainId, { name: "<ruleName>" }, token)
+mgSdk.Reports.generateReport(domainId, { name: "configName" }, token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -20,29 +20,33 @@ mgSdk.Rules.create(domainId, { name: "<ruleName>" }, token)
     console.error(error);
   });
 
-mgSdk.Rules.list(domainId, { offset: 0, limit: 10 }, token)
+mgSdk.Reports.addReportConfig(domainId, { name: "configName" }, token)
   .then((response: any) => {
-    console.log("response: ", response);
+    console.log("response:", response);
   })
   .catch((error) => {
     console.error(error);
   });
 
-mgSdk.Rules.view("<ruleId>", domainId, token)
+mgSdk.Reports.viewReportConfig(domainId, "<configId>", token)
   .then((response: any) => {
-    console.log(response);
+    console.log("response:", response);
   })
-  .catch((error: any) => {
+  .catch((error) => {
     console.error(error);
   });
 
-mgSdk.Rules.update(
+mgSdk.Reports.listReportConfigs(domainId, { offset: 0, limit: 10 }, token)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Reports.updateReportConfig(
   domainId,
-  {
-    id: "<ruleId>",
-    name: "<updatedName>",
-    logic: { type: 1, value: "<value>", outputs: ["save_senml"] },
-  },
+  { id: "<ruleId>", name: "<updatedName>" },
   token
 )
   .then((response: any) => {
@@ -52,17 +56,7 @@ mgSdk.Rules.update(
     console.error(error);
   });
 
-mgSdk.Rules.updateSchedule(
-  domainId,
-  "<ruleId>",
-  {
-    start_datetime: "2025-02-07T03:14:00.000Z",
-    time: "0001-01-01T07:39:44.000Z",
-    recurring: "daily",
-    recurring_period: 1,
-  },
-  token
-)
+mgSdk.Reports.deleteReportConfig(domainId, "<configId>", token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -70,15 +64,7 @@ mgSdk.Rules.updateSchedule(
     console.error(error);
   });
 
-mgSdk.Rules.delete(domainId, "<ruleId>", token)
-  .then((response: any) => {
-    console.log("response: ", response);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-mgSdk.Rules.disable(domainId, "<ruleId>", token)
+mgSdk.Reports.enableReportConfig(domainId, "<configId>", token)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -86,9 +72,17 @@ mgSdk.Rules.disable(domainId, "<ruleId>", token)
     console.error(error);
   });
 
-mgSdk.Rules.enable(domainId, "<ruleId>", token)
+mgSdk.Reports.disableReportConfig(domainId, "<configId>", token)
   .then((response: any) => {
-    console.log("response: ", response);
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Reports.downloadReport(domainId, "<reportId>", token)
+  .then((response: any) => {
+    console.log("response:", response);
   })
   .catch((error) => {
     console.error(error);

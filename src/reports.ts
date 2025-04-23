@@ -395,7 +395,11 @@ export default class Reports {
         throw Errors.HandleError(errorRes.message, response.status);
       }
       const report: ReportResponse = await response.json();
-      return report;
+      return {
+        ...report,
+        pdf: report.pdf ? new Uint8Array(report.pdf) : undefined,
+        csv: report.csv ? new Uint8Array(report.csv) : undefined,
+      };
     } catch (error) {
       throw error;
     }
