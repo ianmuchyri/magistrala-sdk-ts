@@ -8,6 +8,7 @@ import {
   ReportResponse,
   Response,
   RulesPageMetadata,
+  Schedule,
 } from "./defs";
 import Errors from "./errors";
 
@@ -227,6 +228,48 @@ export default class Reports {
       const response = await fetch(
         new URL(
           `${domainId}/${this.reportsEndpoint}/${this.configsEndpoint}/${config.id}`,
+          this.reportsUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const updatedReportConfig: ReportConfig = await response.json();
+      return updatedReportConfig;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Updates an existing report schedule.
+   * @param {string} domainId - Domain identifier.
+   * @param {Schedule} schedule - Report schedule with updated values.
+   * @param {string} token - Bearer token for authorization.
+   * @returns {Promise<ReportConfig>} - The updated report config.
+   * @throws {Error} - If the schedule cannot be updated.
+   */
+
+  public async updateReportSchedule(
+    domainId: string,
+    configId: string,
+    schedule: Schedule,
+    token: string
+  ): Promise<ReportConfig> {
+    const options: RequestInit = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(schedule),
+    };
+    try {
+      const response = await fetch(
+        new URL(
+          `${domainId}/${this.reportsEndpoint}/${this.configsEndpoint}/${configId}/schedule`,
           this.reportsUrl
         ).toString(),
         options

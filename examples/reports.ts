@@ -104,6 +104,24 @@ mgSdk.Reports.updateReportConfig(
     console.error(error);
   });
 
+mgSdk.Reports.updateReportSchedule(
+  domainId,
+  "<configId>",
+  {
+    start_datetime: "",
+    time: "",
+    recurring: "daily",
+    recurring_period: 1,
+  },
+  token
+)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 mgSdk.Reports.deleteReportConfig(domainId, "<configId>", token)
   .then((response: any) => {
     console.log("response:", response);

@@ -10,7 +10,7 @@ import SDK, {
   ReportPage,
   SenMLMessage,
 } from "../src/sdk";
-import { ReportResponse } from "../src/defs";
+import { ReportResponse, Schedule } from "../src/defs";
 
 enableFetchMocks();
 
@@ -34,12 +34,20 @@ describe("Reports SDK", () => {
     format: "",
   };
 
+  const schedule: Schedule = {
+    start_datetime: "2025-04-24T12:00:00.000Z",
+    time: "1970-01-01T10:00:00.000Z",
+    recurring: "weekly",
+    recurring_period: 1,
+  };
+
   const reportConfig: ReportConfig = {
     id: "id",
     name: "name",
     description: "description",
     domain_id: domainId,
     metrics: [metric],
+    schedule,
   };
 
   const reportConfigPage: ReportConfigPage = {
@@ -141,6 +149,25 @@ describe("Reports SDK", () => {
     );
 
     expect(response).toEqual(updatedConfig);
+  });
+
+  test("Update report schedule should update an existing report schedule", async () => {
+    const updatedSchedule: Schedule = {
+      ...schedule,
+      recurring_period: 2,
+    };
+    reportConfig.schedule = updatedSchedule;
+
+    fetchMock.mockResponseOnce(JSON.stringify(reportConfig));
+
+    const response = await sdk.Reports.updateReportSchedule(
+      domainId,
+      reportConfig.id as string,
+      updatedSchedule,
+      token
+    );
+
+    expect(response).toEqual(reportConfig);
   });
 
   test("Delete report config should delete an existing report configuration", async () => {
