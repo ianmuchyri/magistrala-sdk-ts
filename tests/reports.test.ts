@@ -10,7 +10,7 @@ import SDK, {
   ReportPage,
   SenMLMessage,
 } from "../src/sdk";
-import { ReportResponse, Schedule } from "../src/defs";
+import { Schedule } from "../src/defs";
 
 enableFetchMocks();
 
@@ -75,15 +75,6 @@ describe("Reports SDK", () => {
   const reportsPage: ReportPage = {
     reports: [report],
     total: 1,
-  };
-
-  const reportResponse: ReportResponse = {
-    pdf: new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]),
-    csv: new Uint8Array([
-      105, 100, 44, 110, 97, 109, 101, 10, 49, 44, 74, 111, 104, 110, 10,
-    ]),
-    filename: "monthly-report-april-2025",
-    content_type: "application/zip",
   };
 
   beforeEach(() => {
@@ -208,22 +199,5 @@ describe("Reports SDK", () => {
       token
     );
     expect(response).toEqual(reportConfig);
-  });
-
-  test("Download report should download a report based on the report config id", async () => {
-    const rawResponse = {
-      ...reportResponse,
-      pdf: Array.from(reportResponse.pdf!),
-      csv: Array.from(reportResponse.csv!),
-    };
-
-    fetchMock.mockResponseOnce(JSON.stringify(rawResponse));
-
-    const response = await sdk.Reports.downloadReport(
-      domainId,
-      reportConfig.id as string,
-      token
-    );
-    expect(response).toEqual(reportResponse);
   });
 });

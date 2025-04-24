@@ -5,7 +5,6 @@ import {
   ReportConfig,
   ReportConfigPage,
   ReportPage,
-  ReportResponse,
   Response,
   RulesPageMetadata,
   Schedule,
@@ -400,49 +399,6 @@ export default class Reports {
       }
       const disabledReportConfig: ReportConfig = await response.json();
       return disabledReportConfig;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
-   * Downloads a report by ID.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} reportId - Unique report identifier.
-   * @param {string} token - Bearer token for authorization.
-   * @returns {Promise<ReportResponse>} - The downloaded report data.
-   * @throws {Error} - If the report cannot be downloaded.
-   */
-  public async downloadReport(
-    domainId: string,
-    reportId: string,
-    token: string
-  ): Promise<ReportResponse> {
-    const options: RequestInit = {
-      method: "GET",
-      headers: {
-        "Content-Type": this.contentType,
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.reportsEndpoint}/${reportId}/download`,
-          this.reportsUrl
-        ).toString(),
-        options
-      );
-      if (!response.ok) {
-        const errorRes = await response.json();
-        throw Errors.HandleError(errorRes.message, response.status);
-      }
-      const report: ReportResponse = await response.json();
-      return {
-        ...report,
-        pdf: report.pdf ? new Uint8Array(report.pdf) : undefined,
-        csv: report.csv ? new Uint8Array(report.csv) : undefined,
-      };
     } catch (error) {
       throw error;
     }

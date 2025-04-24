@@ -145,11 +145,3 @@ mgSdk.Reports.disableReportConfig(domainId, "<configId>", token)
   .catch((error) => {
     console.error(error);
   });
-
-mgSdk.Reports.downloadReport(domainId, "<reportId>", token)
-  .then((response: any) => {
-    console.log("response:", response);
-  })
-  .catch((error) => {
-    console.error(error);
-  });

@@ -720,10 +720,3 @@ export interface ReportConfigPage {
   total: number;
   report_configs: ReportConfig[];
 }
-
-export interface ReportResponse {
-  pdf?: Uint8Array;
-  csv?: Uint8Array;
-  filename?: string;
-  content_type?: string;
-}
