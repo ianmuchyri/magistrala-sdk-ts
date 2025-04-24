@@ -12,7 +12,31 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Reports.generateReport(domainId, { name: "<configName>" }, token)
+mgSdk.Reports.generateReport(
+  domainId,
+  {
+    name: "report 1",
+    description: "This is my first report",
+    config: {
+      from: "now()-5d",
+      to: "now()",
+      aggregation: {
+        agg_type: "",
+        interval: "10m",
+      },
+    },
+    metrics: [
+      {
+        name: "<messageName>",
+        channel_id: "<channelId>",
+        client_id: "<clientId>",
+        subtopic: "",
+        protocol: "",
+      },
+    ],
+  },
+  token
+)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -20,7 +44,31 @@ mgSdk.Reports.generateReport(domainId, { name: "<configName>" }, token)
     console.error(error);
   });
 
-mgSdk.Reports.addReportConfig(domainId, { name: "<configName>" }, token)
+mgSdk.Reports.addReportConfig(
+  domainId,
+  {
+    name: "report 1",
+    description: "This is my first report",
+    config: {
+      from: "now()-5d",
+      to: "now()",
+      aggregation: {
+        agg_type: "",
+        interval: "10m",
+      },
+    },
+    metrics: [
+      {
+        name: "<messageName>",
+        channel_id: "<channelId>",
+        client_id: "<clientId>",
+        subtopic: "",
+        protocol: "",
+      },
+    ],
+  },
+  token
+)
   .then((response: any) => {
     console.log("response:", response);
   })
@@ -46,7 +94,7 @@ mgSdk.Reports.listReportConfigs(domainId, { offset: 0, limit: 10 }, token)
 
 mgSdk.Reports.updateReportConfig(
   domainId,
-  { id: "<ruleId>", name: "<updatedName>" },
+  { id: "<configId>", name: "<updatedName>" },
   token
 )
   .then((response: any) => {
