@@ -264,7 +264,7 @@ export default class Reports {
         "Content-Type": this.contentType,
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(schedule),
+      body: JSON.stringify({ schedule }),
     };
     try {
       const response = await fetch(

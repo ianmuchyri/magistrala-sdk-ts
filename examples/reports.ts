@@ -108,8 +108,8 @@ mgSdk.Reports.updateReportSchedule(
   domainId,
   "<configId>",
   {
-    start_datetime: "",
-    time: "",
+    start_datetime: "2025-04-24T12:00:00.000Z",
+    time: "1970-01-01T10:00:00.000Z",
     recurring: "daily",
     recurring_period: 1,
   },
