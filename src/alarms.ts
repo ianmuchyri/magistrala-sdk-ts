@@ -27,8 +27,8 @@ export default class Alarms {
   /**
    * Lists all alarms within a domain, with optional pagination/filtering.
    * @param {AlarmPageMeta} queryParams - Query parameters for pagination/filtering.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} token - Authorization token.
    * @returns {Promise<AlarmsPage>} - A page of alarms.
    * @throws {Error} - If the alarm list cannot be retrieved.
    */
@@ -73,8 +73,8 @@ export default class Alarms {
   /**
    * Retrieves a single alarm by ID.
    * @param {string} alarmId - Unique alarm identifier.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} token - Authorization token.
    * @returns {Promise<Alarm>} - The requested alarm.
    * @throws {Error} - If the alarm cannot be fetched.
    */
@@ -113,8 +113,8 @@ export default class Alarms {
   /**
    * Updates an existing alarm.
    * @param {Alarm} alarm - Alarm object containing updated fields.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} token - Authorization token.
    * @returns {Promise<Alarm>} - The updated alarm.
    * @throws {Error} - If the update fails.
    */
@@ -153,9 +153,9 @@ export default class Alarms {
 
   /**
    * Deletes an alarm by ID.
-   * @param {string} alarmId - Unique alarm identifier.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} alarmId - The unique ID of the alarm.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} token - Authorization token.
    * @returns {Promise<Response>} - A success response object.
    * @throws {Error} - If the delete fails.
    */

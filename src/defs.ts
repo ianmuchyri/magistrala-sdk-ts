@@ -696,6 +696,7 @@ export interface Email {
   to?: string[];
   from?: string;
   subject?: string;
+  format?: string;
 }
 
 export interface ReportConfig {

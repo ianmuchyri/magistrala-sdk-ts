@@ -40,9 +40,9 @@ export default class Reports {
 
   /**
    * Generates a report using a provided report configuration.
-   * @param {string} domainId - Domain identifier.
+   * @param {string} domainId - The unique ID of the domain.
    * @param {ReportConfig} reportConfig - Configuration for generating the report.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportPage>} - The generated report data.
    * @throws {Error} - If the report generation fails.
    */
@@ -80,9 +80,9 @@ export default class Reports {
 
   /**
    * Adds a new report configuration.
-   * @param {string} domainId - Domain identifier.
+   * @param {string} domainId - The unique ID of the domain.
    * @param {ReportConfig} reportConfig - Report configuration to add.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The added report configuration.
    * @throws {Error} - If the configuration cannot be added.
    */
@@ -120,9 +120,9 @@ export default class Reports {
 
   /**
    * Retrieves a report configuration by ID.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} configId - Report configuration ID.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} configId - The unique ID of the config.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The requested report configuration.
    * @throws {Error} - If the configuration cannot be fetched.
    */
@@ -159,9 +159,9 @@ export default class Reports {
 
   /**
    * Lists report configurations with optional query parameters.
-   * @param {string} domainId - Domain identifier.
+   * @param {string} domainId - The unique ID of the domain.
    * @param {RulesPageMetadata} queryParams - Query parameters for pagination and filtering.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfigPage>} - Paginated report configurations.
    * @throws {Error} - If configurations cannot be listed.
    */
@@ -203,9 +203,9 @@ export default class Reports {
 
   /**
    * Updates an existing report configuration.
-   * @param {string} domainId - Domain identifier.
+   * @param {string} domainId - The unique ID of the domain.
    * @param {ReportConfig} config - Report configuration with updated values.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The updated report configuration.
    * @throws {Error} - If the configuration cannot be updated.
    */
@@ -244,9 +244,10 @@ export default class Reports {
 
   /**
    * Updates an existing report schedule.
-   * @param {string} domainId - Domain identifier.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} configId - The unique ID of the config.
    * @param {Schedule} schedule - Report schedule with updated values.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The updated report config.
    * @throws {Error} - If the schedule cannot be updated.
    */
@@ -286,9 +287,9 @@ export default class Reports {
 
   /**
    * Deletes a report configuration.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} configId - Report configuration ID.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} configId - The unique ID of the config.
+   * @param {string} token - Authorization token.
    * @returns {Promise<Response>} - Deletion status.
    * @throws {Error} - If the configuration cannot be deleted.
    */
@@ -328,9 +329,9 @@ export default class Reports {
 
   /**
    * Enables a report configuration.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} configId - Report configuration ID.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} configId - The unique ID of the config.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The enabled report configuration.
    * @throws {Error} - If the configuration cannot be enabled.
    */
@@ -367,9 +368,9 @@ export default class Reports {
 
   /**
    * Disables a report configuration.
-   * @param {string} domainId - Domain identifier.
-   * @param {string} configId - Report configuration ID.
-   * @param {string} token - Bearer token for authorization.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} configId - The unique ID of the config.
+   * @param {string} token - Authorization token.
    * @returns {Promise<ReportConfig>} - The disabled report configuration.
    * @throws {Error} - If the configuration cannot be disabled.
    */
