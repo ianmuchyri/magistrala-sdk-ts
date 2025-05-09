@@ -74,7 +74,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(this.usersEndpoint, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -104,7 +104,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/tokens/issue`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -136,9 +136,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/tokens/refresh`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -171,7 +171,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/${user.id}`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -204,9 +204,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${user.id}/email`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -239,9 +239,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${user.id}/username`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -274,9 +274,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${user.id}/picture`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -310,9 +310,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${user.id}/tags`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -336,7 +336,7 @@ export default class Users {
   public async UpdateUserPassword(
     oldSecret: string,
     newSecret: string,
-    token: string,
+    token: string
   ): Promise<User> {
     const options: RequestInit = {
       method: "PATCH",
@@ -350,7 +350,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/secret`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -384,9 +384,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${user.id}/role`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -418,7 +418,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/${userId}`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -449,7 +449,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/profile`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -471,10 +471,10 @@ export default class Users {
    */
   public async Users(
     queryParams: PageMetadata,
-    token: string,
+    token: string
   ): Promise<UsersPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)]),
+      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
     );
 
     const options: RequestInit = {
@@ -489,11 +489,11 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}?${new URLSearchParams(
-            stringParams,
+            stringParams
           ).toString()}`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -526,9 +526,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${userId}/disable`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -560,9 +560,9 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${userId}/enable`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -588,10 +588,10 @@ export default class Users {
     domainId: string,
     userId: string,
     queryParams: PageMetadata,
-    token: string,
+    token: string
   ): Promise<GroupsPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)]),
+      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
     );
 
     const options: RequestInit = {
@@ -607,9 +607,9 @@ export default class Users {
           `${domainId}/${
             this.usersEndpoint
           }/${userId}/groups?${new URLSearchParams(stringParams).toString()}`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -635,10 +635,10 @@ export default class Users {
     userId: string,
     domainId: string,
     queryParams: PageMetadata,
-    token: string,
+    token: string
   ): Promise<ClientsPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)]),
+      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
     );
 
     const options: RequestInit = {
@@ -654,9 +654,9 @@ export default class Users {
           `${domainId}/${
             this.usersEndpoint
           }/${userId}/clients?${new URLSearchParams(stringParams).toString()}`,
-          this.clientsUrl,
+          this.clientsUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -683,10 +683,10 @@ export default class Users {
     domainId: string,
     userId: string,
     queryParams: PageMetadata,
-    token: string,
+    token: string
   ): Promise<ChannelsPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)]),
+      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
     );
 
     const options: RequestInit = {
@@ -702,9 +702,9 @@ export default class Users {
           `${domainId}/${
             this.usersEndpoint
           }/${userId}/channels?${new URLSearchParams(stringParams).toString()}`,
-          this.clientsUrl,
+          this.clientsUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -726,7 +726,7 @@ export default class Users {
    */
   public async ResetPasswordRequest(
     email: string,
-    hostUrl: string,
+    hostUrl: string
   ): Promise<Response> {
     const options: RequestInit = {
       method: "POST",
@@ -739,7 +739,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL("/password/reset-request", this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -766,19 +766,20 @@ export default class Users {
   public async ResetPassword(
     password: string,
     confPass: string,
-    token: string,
+    token: string
   ): Promise<Response> {
     const options: RequestInit = {
       method: "PUT",
       headers: {
         "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ token, password, confirm_password: confPass }),
+      body: JSON.stringify({ password, confirm_password: confPass }),
     };
     try {
       const response = await fetch(
         new URL("/password/reset", this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -812,7 +813,7 @@ export default class Users {
     try {
       const response = await fetch(
         new URL(`${this.usersEndpoint}/${userId}`, this.usersUrl).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
@@ -837,10 +838,10 @@ export default class Users {
    * */
   public async SearchUsers(
     queryParams: PageMetadata,
-    token: string,
+    token: string
   ): Promise<UsersPage> {
     const stringParams: Record<string, string> = Object.fromEntries(
-      Object.entries(queryParams).map(([key, value]) => [key, String(value)]),
+      Object.entries(queryParams).map(([key, value]) => [key, String(value)])
     );
 
     const options: RequestInit = {
@@ -854,11 +855,11 @@ export default class Users {
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/${this.searchEndpoint}?${new URLSearchParams(
-            stringParams,
+            stringParams
           ).toString()}`,
-          this.usersUrl,
+          this.usersUrl
         ).toString(),
-        options,
+        options
       );
       if (!response.ok) {
         const errorRes = await response.json();
