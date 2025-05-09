@@ -732,9 +732,8 @@ export default class Users {
       method: "POST",
       headers: {
         "Content-Type": this.contentType,
-        Referer: hostUrl,
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, hostUrl }),
     };
     try {
       const response = await fetch(
