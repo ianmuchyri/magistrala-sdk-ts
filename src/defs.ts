@@ -464,15 +464,16 @@ export interface MembersPage {
   limit: number;
 }
 
-export type ScriptOutput =
-  | "channels"
-  | "save_senml"
-  | "alarms"
-  | "email"
-  | "save_remote_pg";
+export enum OutputType {
+  CHANNELS = "channels",
+  SAVE_SENML = "save_senml",
+  ALARMS = "alarms",
+  EMAIL = "email",
+  SAVE_REMOTE_PG = "save_remote_pg",
+}
+
 export interface Script {
   type: number;
-  outputs: ScriptOutput[];
   value: string;
 }
 
@@ -494,7 +495,7 @@ export interface Rule {
   input_channel?: string;
   input_topic?: string;
   logic?: Script;
-  outputs?: Outputs;
+  outputs?: Output[];
   schedule?: Schedule;
   status?: RuleStatus;
   created_by?: string;
@@ -503,24 +504,22 @@ export interface Rule {
   updated_by?: string;
 }
 
-export interface Outputs {
-  channel?: ChannelOutput;
-  email?: EmailOutput;
-  postgres_db?: PostgresDBOutput;
+export interface Output {
+  type: OutputType;
 }
 
-export interface ChannelOutput {
+export interface ChannelOutput extends Output {
   channel: string | ChannelBasicInfo;
   topic?: string;
 }
 
-export interface EmailOutput {
+export interface EmailOutput extends Output {
   to: string[];
   subject?: string;
   content?: string;
 }
 
-export interface PostgresDBOutput {
+export interface PostgresDBOutput extends Output {
   host: string;
   port: number;
   user: string;
