@@ -9,7 +9,7 @@ import SDK, {
   ReportPage,
   SenMLMessage,
 } from "../src/sdk";
-import { ReqMetric, Schedule } from "../src/defs";
+import { ReqMetric, Schedule, Template } from "../src/defs";
 
 enableFetchMocks();
 
@@ -76,7 +76,11 @@ describe("Reports SDK", () => {
     total: 1,
   };
 
-  const reportTemplate: string = "";
+  const htmlTemplate: string = "";
+
+  const template: Template = {
+    html_template: htmlTemplate
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -206,21 +210,21 @@ describe("Reports SDK", () => {
     const response = await sdk.Reports.updateReportTemplate(
       domainId,
       reportConfig.id as string,
-      reportTemplate,
+      htmlTemplate,
       token
     );
     expect(response).toBeUndefined();
   });
 
   test("View report template should return a report template", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(reportTemplate));
+    fetchMock.mockResponseOnce(JSON.stringify(template));
 
     const response = await sdk.Reports.viewReportTemplate(
       domainId,
       reportConfig.id as string,
       token
     );
-    expect(response).toEqual(reportTemplate);
+    expect(response).toEqual(template);
   });
 
   test("Delete report template should delete a report template", async () => {

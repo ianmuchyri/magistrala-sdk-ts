@@ -8,6 +8,7 @@ import {
   Response,
   RulesPageMetadata,
   Schedule,
+  Template,
 } from "./defs";
 import Errors from "./errors";
 
@@ -450,14 +451,14 @@ export default class Reports {
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} reportId - The unique ID of the report.
    * @param {string} token - Authorization token.
-   * @returns {Promise<string>} - The template used to generate report configuration.
+   * @returns {Promise<Template>} - The template used to generate report configuration.
    * @throws {Error} - If the report template cannot be retrieved.
    */
   public async viewReportTemplate(
     domainId: string,
     reportId: string,
     token: string
-  ): Promise<string> {
+  ): Promise<Template> {
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -477,7 +478,7 @@ export default class Reports {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);
       }
-      const template: string = await response.json();
+      const template: Template = await response.json();
       return template;
     } catch (error) {
       throw error;

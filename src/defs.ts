@@ -777,3 +777,7 @@ export interface ReportConfigPage {
   total: number;
   report_configs: ReportConfig[];
 }
+
+export interface Template {
+  html_template: string
+}

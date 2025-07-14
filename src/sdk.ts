@@ -104,6 +104,7 @@ export type {
   ReqMetric,
   Format,
   ReportFile,
+  Template,
 } from "./defs";
 
 const defaultUrl = "http://localhost";
