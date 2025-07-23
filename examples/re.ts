@@ -1,7 +1,7 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
-import SDK from "../src/sdk";
+import SDK, { OutputType } from "../src/sdk";
 
 const defaultUrl = "http://localhost";
 
@@ -41,10 +41,22 @@ mgSdk.Rules.update(
   {
     id: "<ruleId>",
     name: "<updatedName>",
-    logic: { type: 1, value: "<value>", outputs: ["save_senml"] },
+    logic: {
+      type: 1,
+      value: "<value>",
+    },
+    outputs: [{ type: "save_senml" as OutputType }],
   },
   token
 )
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Rules.updateTags(domainId, "<ruleId>", ["tag1", "tag2"], token)
   .then((response: any) => {
     console.log("response:", response);
   })

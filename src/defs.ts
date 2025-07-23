@@ -492,6 +492,7 @@ export interface Rule {
   name?: string;
   domain?: string;
   metadata?: Record<string, any>;
+  tags?: string[];
   input_channel?: string;
   input_topic?: string;
   logic?: Script;

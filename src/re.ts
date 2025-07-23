@@ -188,6 +188,48 @@ export default class Rules {
   }
 
   /**
+   * @method updateTags - Updates an existing rule's tags.
+   * @param {string} domainId - The unique ID of the domain.
+   * @param {string} ruleId - The unique ID of the rule.
+   * @param {string[]} tags - The updated tags for the rule.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<Rule>} rule - The updated rule object.
+   * @throws {Error} - If the rule cannot be updated.
+   */
+  public async updateTags(
+    domainId: string,
+    ruleId: string,
+    tags: string[],
+    token: string
+  ): Promise<Rule> {
+    const options: RequestInit = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ tags }),
+    };
+    try {
+      const response = await fetch(
+        new URL(
+          `${domainId}/${this.rulesEndpoint}/${ruleId}/tags`,
+          this.rulesUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const updatedRule: Rule = await response.json();
+      return updatedRule;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * @method updateSchedule - Updates the schedule for a specific rule.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} ruleId - The ID of the rule whose schedule is to be updated.
