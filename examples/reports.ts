@@ -153,3 +153,32 @@ mgSdk.Reports.disableReportConfig(domainId, "<configId>", token)
   .catch((error) => {
     console.error(error);
   });
+
+mgSdk.Reports.updateReportTemplate(
+  domainId,
+  "<reportId>",
+  "<report_template>",
+  token
+)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Reports.viewReportTemplate(domainId, "<reportId>", token)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Reports.deleteReportTemplate(domainId, "<reportId>", token)
+  .then((response: any) => {
+    console.log("response:", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
