@@ -22,6 +22,7 @@ mgSdk.Reports.generateReport(
       from: "now()-5d",
       to: "now()",
       aggregation: {
+        agg_type: undefined,
         interval: "10m",
       },
     },
@@ -34,7 +35,6 @@ mgSdk.Reports.generateReport(
         protocol: "",
       },
     ],
-    report_template: "<report_template>",
   },
   token
 )
@@ -55,6 +55,7 @@ mgSdk.Reports.addReportConfig(
       from: "now()-5d",
       to: "now()",
       aggregation: {
+        agg_type: undefined,
         interval: "10m",
       },
     },
@@ -68,12 +69,11 @@ mgSdk.Reports.addReportConfig(
       },
     ],
     email: {
-      to: [
-        "user1@example.com"
-      ],
+      to: ["user1@example.com"],
       subject: "Instant report from Magistrala stage",
-      content: "Hi, \n Please find the attached instant report from Magistrala stage"
-    }
+      content:
+        "Hi, \n Please find the attached instant report from Magistrala stage",
+    },
   },
   token
 )

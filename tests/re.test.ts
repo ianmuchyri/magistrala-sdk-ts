@@ -33,6 +33,7 @@ describe("Rules SDK", () => {
     metadata: {
       key: "value",
     },
+    tags: ["tag1", "tag2"],
   };
 
   const rulesPage: RulesPage = {
@@ -77,6 +78,21 @@ describe("Rules SDK", () => {
 
     const response = await sdk.Rules.update(domainId, updatedRule, token);
     expect(response).toEqual(updatedRule);
+  });
+
+  test("Update tags should update the rule tags", async () => {
+    const updatedTags = ["tag3", "tag4"];
+    rule.tags = updatedTags;
+    fetchMock.mockResponseOnce(JSON.stringify(rule));
+
+    const response = await sdk.Rules.updateTags(
+      domainId,
+      rule.id as string,
+      updatedTags,
+      token
+    );
+
+    expect(response).toEqual(rule);
   });
 
   test("Update schedule should update the schedule", async () => {
