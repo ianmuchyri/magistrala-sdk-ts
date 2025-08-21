@@ -538,8 +538,6 @@ export interface RulesPageMetadata {
   total?: number;
   offset?: number;
   limit?: number;
-  dir?: OrderDirection;
-  order?:OrderByField;
   name?: string;
   input_channel?: string;
   status?: RuleStatus;
