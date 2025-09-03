@@ -875,7 +875,7 @@ export default class Users {
   /**
    * @method SendVerification - Sends a verification email to the authenticated user.
    * @param {string} token - Authorization token.
-   * @returns {Promise<Response>} sendVerificationResponse - Response containing status and message.
+   * @returns {Promise<Response>} sendVerificationResponse - A promise that resolves when the verification email is sent.
    * @throws {Error} - If the verification email cannot be sent.
    */
   public async SendVerification(token: string): Promise<Response> {
@@ -911,7 +911,7 @@ export default class Users {
   /**
    * @method VerifyEmail - Verifies a user's email address using a verification token.
    * @param {string} token - Email verification token received by the user.
-   * @returns {Promise<Response>} verifyEmailResponse - Response containing status and message.
+   * @returns {Promise<Response>} verifyEmailResponse - A promise that resolves when the user's email has been verified.
    * @throws {Error} - If the email verification fails.
    */
   public async VerifyEmail(token: string): Promise<Response> {
