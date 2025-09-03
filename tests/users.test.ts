@@ -181,7 +181,7 @@ describe("Users", () => {
     const response = await sdk.Users.UpdateUserPassword(
       oldSecret,
       newSecret,
-      token,
+      token
     );
     expect(response).toEqual(user);
   });
@@ -235,7 +235,7 @@ describe("Users", () => {
       domainId,
       userId,
       queryParams,
-      token,
+      token
     );
     expect(response).toEqual(GroupsPage);
   });
@@ -247,7 +247,7 @@ describe("Users", () => {
       domainId,
       userId,
       queryParams,
-      token,
+      token
     );
     expect(response).toEqual(clientsPage);
   });
@@ -259,7 +259,7 @@ describe("Users", () => {
       domainId,
       userId,
       queryParams,
-      token,
+      token
     );
     expect(response).toEqual(channelsPage);
   });
@@ -302,5 +302,27 @@ describe("Users", () => {
 
     const response = await sdk.Users.SearchUsers(queryParams, token);
     expect(response).toEqual(UsersPage);
+  });
+
+  test("send verification should send a verification email", async () => {
+    const sendResponse = {
+      status: 200,
+      message: "Verification email sent successfully",
+    };
+    fetchMock.mockResponseOnce(JSON.stringify(sendResponse));
+
+    const response = await sdk.Users.SendVerification(token);
+    expect(response).toEqual(sendResponse);
+  });
+
+  test("verify email should verify user's email", async () => {
+    const verifyResponse = {
+      status: 200,
+      message: "Email verified successfully",
+    };
+    fetchMock.mockResponseOnce(JSON.stringify(verifyResponse));
+
+    const response = await sdk.Users.VerifyEmail(token);
+    expect(response).toEqual(verifyResponse);
   });
 });

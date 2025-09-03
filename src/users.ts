@@ -835,7 +835,7 @@ export default class Users {
    * @param {string} token - Authorization token.
    * @returns {Promise<UsersPage>} usersPage - A page of users.
    * @throws {Error} - If the users cannot be fetched.
-   * */
+   */
   public async SearchUsers(
     queryParams: PageMetadata,
     token: string
@@ -872,7 +872,13 @@ export default class Users {
     }
   }
 
-  public async SendVerification(token: string) {
+  /**
+   * @method SendVerification - Sends a verification email to the authenticated user.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<Response>} sendVerificationResponse - Response containing status and message.
+   * @throws {Error} - If the verification email cannot be sent.
+   */
+  public async SendVerification(token: string): Promise<Response> {
     const options: RequestInit = {
       method: "POST",
       headers: {
@@ -903,7 +909,13 @@ export default class Users {
     }
   }
 
-  public async VerifyEmail(token: string) {
+  /**
+   * @method VerifyEmail - Verifies a user's email address using a verification token.
+   * @param {string} token - Email verification token received by the user.
+   * @returns {Promise<Response>} verifyEmailResponse - Response containing status and message.
+   * @throws {Error} - If the email verification fails.
+   */
+  public async VerifyEmail(token: string): Promise<Response> {
     const options: RequestInit = {
       method: "GET",
       headers: {
