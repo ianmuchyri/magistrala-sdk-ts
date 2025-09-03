@@ -221,3 +221,19 @@ mgSdk.Users.SearchUsers({ username: "<username>" }, token)
   .catch((error) => {
     console.error(error);
   });
+
+mgSdk.Users.SendVerification(token)
+  .then((response: any) => {
+    console.log("response: ", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+mgSdk.Users.VerifyEmail(token)
+  .then((response: any) => {
+    console.log("response: ", response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });

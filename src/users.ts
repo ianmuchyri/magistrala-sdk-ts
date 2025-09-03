@@ -871,4 +871,64 @@ export default class Users {
       throw error;
     }
   }
+
+  public async SendVerification(token: string) {
+    const options: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      console.log("options: ", options);
+      const response = await fetch(
+        new URL(
+          `${this.usersEndpoint}/send-verification`,
+          this.usersUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const sendVerificationResponse: Response = {
+        status: response.status,
+        message: "Verification email sent successfully",
+      };
+      return sendVerificationResponse;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async VerifyEmail(token: string) {
+    const options: RequestInit = {
+      method: "GET",
+      headers: {
+        "Content-Type": this.contentType,
+      },
+    };
+    try {
+      const response = await fetch(
+        new URL(
+          `${this.usersEndpoint}/verify-email?token=${token}`,
+          this.usersUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const verifyEmailResponse: Response = {
+        status: response.status,
+        message: "Email verified successfully",
+      };
+      return verifyEmailResponse;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
