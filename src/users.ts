@@ -887,7 +887,6 @@ export default class Users {
       },
     };
     try {
-      console.log("options: ", options);
       const response = await fetch(
         new URL(
           `${this.usersEndpoint}/send-verification`,
