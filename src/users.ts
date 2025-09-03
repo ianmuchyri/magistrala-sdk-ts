@@ -835,7 +835,7 @@ export default class Users {
    * @param {string} token - Authorization token.
    * @returns {Promise<UsersPage>} usersPage - A page of users.
    * @throws {Error} - If the users cannot be fetched.
-   * */
+   */
   public async SearchUsers(
     queryParams: PageMetadata,
     token: string
@@ -867,6 +867,77 @@ export default class Users {
       }
       const usersData: UsersPage = await response.json();
       return usersData;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @method SendVerification - Sends a verification email to the authenticated user.
+   * @param {string} token - Authorization token.
+   * @returns {Promise<Response>} sendVerificationResponse - A promise that resolves when the verification email is sent.
+   * @throws {Error} - If the verification email cannot be sent.
+   */
+  public async SendVerification(token: string): Promise<Response> {
+    const options: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": this.contentType,
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        new URL(
+          `${this.usersEndpoint}/send-verification`,
+          this.usersUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const sendVerificationResponse: Response = {
+        status: response.status,
+        message: "Verification email sent successfully",
+      };
+      return sendVerificationResponse;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @method VerifyEmail - Verifies a user's email address using a verification token.
+   * @param {string} token - Email verification token received by the user.
+   * @returns {Promise<Response>} verifyEmailResponse - A promise that resolves when the user's email has been verified.
+   * @throws {Error} - If the email verification fails.
+   */
+  public async VerifyEmail(token: string): Promise<Response> {
+    const options: RequestInit = {
+      method: "GET",
+      headers: {
+        "Content-Type": this.contentType,
+      },
+    };
+    try {
+      const response = await fetch(
+        new URL(
+          `${this.usersEndpoint}/verify-email?token=${token}`,
+          this.usersUrl
+        ).toString(),
+        options
+      );
+      if (!response.ok) {
+        const errorRes = await response.json();
+        throw Errors.HandleError(errorRes.message, response.status);
+      }
+      const verifyEmailResponse: Response = {
+        status: response.status,
+        message: "Email verified successfully",
+      };
+      return verifyEmailResponse;
     } catch (error) {
       throw error;
     }

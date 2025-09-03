@@ -18,6 +18,7 @@ export interface User extends UserBasicInfo {
   created_at?: Date;
   updated_at?: Date;
   updated_by?: string | UserBasicInfo;
+  verified_at?: Date;
   permissions?: string[];
 }
 
@@ -281,6 +282,7 @@ export interface PageMetadata extends BasicPageMeta {
   channel?: string;
   connection_type?: string;
   root_group?: boolean;
+  verified?: boolean
 }
 
 export interface MessagesPage {
@@ -541,7 +543,7 @@ export interface RulesPageMetadata {
   name?: string;
   input_channel?: string;
   status?: RuleStatus;
-  tag?: string
+  tag?: string;
 }
 
 export interface RulesPage extends RulesPageMetadata {
@@ -784,5 +786,5 @@ export interface ReportConfigPage {
 }
 
 export interface Template {
-  html_template: string
+  html_template: string;
 }
