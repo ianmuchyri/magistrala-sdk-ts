@@ -11,10 +11,13 @@ export interface UserBasicInfo {
   profile_picture?: string;
 }
 
+export type Metadata = Record<string, unknown>;
+
 export interface User extends UserBasicInfo {
   role?: string;
   tags?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
+  private_metadata?: Metadata;
   created_at?: Date;
   updated_at?: Date;
   updated_by?: string | UserBasicInfo;
@@ -53,7 +56,8 @@ export interface Client extends ClientBasicInfo {
   tags?: string[];
   domain_id?: string | DomainBasicInfo;
   parent_group_id?: string;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
+  private_metadata?: Metadata;
   created_at?: Date;
   updated_at?: Date;
   updated_by?: string | UserBasicInfo;
@@ -89,7 +93,7 @@ export interface GroupBasicInfo {
 export interface Group extends GroupBasicInfo {
   domain_id?: string | DomainBasicInfo;
   parent_id?: string | GroupBasicInfo;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   level?: number;
   path?: string;
   children?: Group[];
@@ -135,7 +139,7 @@ export interface ChannelBasicInfo {
 
 export interface Channel extends ChannelBasicInfo {
   domain_id?: string | DomainBasicInfo;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   tags?: string[];
   parent_group_id?: string;
   created_at?: Date;
@@ -183,7 +187,7 @@ export interface DomainBasicInfo {
 
 export interface Domain extends DomainBasicInfo {
   tags?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   role_id?: string;
   role_name?: string;
   actions?: string[];
@@ -252,7 +256,7 @@ export interface PageMetadata extends BasicPageMeta {
   last_name?: string;
   name?: string;
   type?: string;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   status?: string;
   action?: string;
   subject?: string;
@@ -495,7 +499,7 @@ export interface Rule {
   id?: string;
   name?: string;
   domain?: string | DomainBasicInfo;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   tags?: string[];
   input_channel?: string | ChannelBasicInfo;
   input_topic?: string;
@@ -693,7 +697,7 @@ export interface Alarm {
   acknowledged_by?: string | UserBasicInfo;
   resolved_at?: Date;
   resolved_by?: string | UserBasicInfo;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
 }
 
 export interface AlarmsPage {

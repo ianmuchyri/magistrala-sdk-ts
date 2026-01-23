@@ -108,6 +108,7 @@ export type {
   Format,
   ReportFile,
   Template,
+  Metadata,
 } from "./defs";
 
 const defaultUrl = "http://localhost";
