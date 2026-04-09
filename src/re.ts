@@ -14,6 +14,7 @@ import {
   MemberRolesPage,
   MembersPage,
   MembersRolePageQuery,
+  QueryParamRoles,
 } from "./defs";
 import Errors from "./errors";
 import Roles from "./roles";
@@ -86,13 +87,15 @@ export default class Rules {
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} ruleId - The unique ID of the rule.
    * @param {string} token - Authorization token.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
    * @returns {Promise<Rule>} rule - The requested rule object.
    * @throws {Error} - If the rule cannot be fetched.
    */
   public async view(
     domainId: string,
     ruleId: string,
-    token: string
+    token: string,
+    listRoles?: boolean
   ): Promise<Rule> {
     const options: RequestInit = {
       method: "GET",
@@ -102,11 +105,15 @@ export default class Rules {
       },
     };
     try {
+      const url = new URL(
+        `${domainId}/${this.rulesEndpoint}/${ruleId}`,
+        this.rulesUrl
+      );
+      if (listRoles) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
       const response = await fetch(
-        new URL(
-          `${domainId}/${this.rulesEndpoint}/${ruleId}`,
-          this.rulesUrl
-        ).toString(),
+        url.toString(),
         options
       );
       if (!response.ok) {

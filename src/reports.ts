@@ -16,6 +16,7 @@ import {
   MemberRolesPage,
   MembersPage,
   MembersRolePageQuery,
+  QueryParamRoles,
 } from "./defs";
 import Errors from "./errors";
 import Roles from "./roles";
@@ -135,13 +136,15 @@ export default class Reports {
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} configId - The unique ID of the config.
    * @param {string} token - Authorization token.
+   * @param {boolean} [listRoles] - Whether to include roles in the response
    * @returns {Promise<ReportConfig>} - The requested report configuration.
    * @throws {Error} - If the configuration cannot be fetched.
    */
   public async viewReportConfig(
     domainId: string,
     configId: string,
-    token: string
+    token: string,
+    listRoles?: boolean
   ): Promise<ReportConfig> {
     const options: RequestInit = {
       method: "GET",
@@ -151,13 +154,14 @@ export default class Reports {
       },
     };
     try {
-      const response = await fetch(
-        new URL(
-          `${domainId}/${this.reportsEndpoint}/${this.configsEndpoint}/${configId}`,
-          this.reportsUrl
-        ).toString(),
-        options
+      const url = new URL(
+        `${domainId}/${this.reportsEndpoint}/${this.configsEndpoint}/${configId}`,
+        this.reportsUrl
       );
+      if (listRoles) {
+        url.searchParams.append(QueryParamRoles, String(listRoles));
+      }
+      const response = await fetch(url.toString(), options);
       if (!response.ok) {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);
