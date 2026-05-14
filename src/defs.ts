@@ -343,22 +343,19 @@ export interface CertsPage {
   limit: number;
 }
 
+export type BootstrapStatus = "enabled" | "disabled";
+
 export interface BootstrapConfig {
-  channels?: string[];
+  id?: string;
   external_id?: string;
   external_key?: string;
-  client_id?: string;
-  client_secret?: string;
   name?: string;
   client_cert?: string;
   client_key?: string;
   ca_cert?: string;
   content?: string;
-  state?: number;
-  encryptedBootstrap?: string;
-  decrypted_key?: string;
-  encrypted_buffer?: string;
-  decrypted?: string;
+  status?: BootstrapStatus;
+  profile_id?: string;
 }
 
 export interface BootstrapPage {
@@ -366,6 +363,58 @@ export interface BootstrapPage {
   total: number;
   offset: number;
   limit: number;
+}
+
+export interface BindingSlot {
+  name: string;
+  type: string;
+  required: boolean;
+  fields?: string[];
+}
+
+export type BootstrapTemplateFormat = "json" | "yaml" | "toml";
+
+export interface BootstrapProfile {
+  id?: string;
+  domain_id?: string;
+  name?: string;
+  description?: string;
+  template_format?: BootstrapTemplateFormat;
+  content_template?: string;
+  defaults?: Record<string, unknown>;
+  binding_slots?: BindingSlot[];
+  version?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface BootstrapProfilesPage {
+  profiles: BootstrapProfile[];
+  total: number;
+  offset: number;
+  limit: number;
+}
+
+export interface BootstrapBindingRequest {
+  slot: string;
+  type: string;
+  resource_id: string;
+}
+
+export interface BootstrapBindingSnapshot {
+  config_id: string;
+  slot: string;
+  type: string;
+  resource_id: string;
+  snapshot?: Record<string, unknown>;
+  secret_snapshot?: Record<string, unknown>;
+  updated_at?: string;
+}
+
+export interface RenderPreviewRequest {
+  config?: BootstrapConfig;
+  render_context?: Record<string, unknown>;
+  bindings?: BootstrapBindingSnapshot[];
 }
 
 export interface JournalsPageMetadata extends PageMetadata {
