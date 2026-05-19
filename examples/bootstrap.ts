@@ -113,7 +113,7 @@ mgSdk.Bootstrap.createProfile(
   {
     name: "<profileName>",
     description: "<profileDescription>",
-    template_format: "json",
+    content_format: "json",
     content_template: '{"key": "{{ .value }}"}',
     defaults: { value: "default" },
     binding_slots: [
@@ -133,7 +133,7 @@ mgSdk.Bootstrap.createProfile(
 mgSdk.Bootstrap.uploadProfile(
   JSON.stringify({
     name: "<profileName>",
-    template_format: "json",
+    content_format: "json",
     content_template: '{"key": "{{.value}}"}',
     defaults: { value: "default" },
   }),
