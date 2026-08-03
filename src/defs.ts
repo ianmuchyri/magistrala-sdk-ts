@@ -530,6 +530,7 @@ export interface MembersPage {
 export enum OutputType {
   CHANNELS = "channels",
   SAVE_SENML = "save_senml",
+  SAVE_JSON = "save_json",
   ALARMS = "alarms",
   EMAIL = "email",
   SAVE_REMOTE_PG = "save_remote_pg",
