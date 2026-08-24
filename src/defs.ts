@@ -85,7 +85,7 @@ export interface Device extends DeviceBasicInfo {
 }
 
 export interface DevicesPage {
-  clients: Device[];
+  devices: Device[];
   total: number;
   offset: number;
   limit: number;
@@ -291,7 +291,7 @@ export interface PageMetadata extends BasicPageMeta {
   role_id?: string;
   role_name?: string;
   group?: string;
-  client?: string;
+  device?: string;
   channel?: string;
   connection_type?: string;
   root_group?: boolean;
@@ -335,10 +335,10 @@ export interface SenMLMessage {
 }
 
 export interface Cert {
-  client_id?: string;
+  device_id?: string;
   cert_serial?: string;
-  client_key?: string;
-  client_cert?: string;
+  device_key?: string;
+  device_cert?: string;
   expiration?: string;
 }
 
@@ -356,8 +356,8 @@ export interface BootstrapConfig {
   external_id?: string;
   external_key?: string;
   name?: string;
-  client_cert?: string;
-  client_key?: string;
+  device_cert?: string;
+  device_key?: string;
   ca_cert?: string;
   content?: string;
   status?: BootstrapStatus;
@@ -666,7 +666,7 @@ export interface RulesPage extends RulesPageMetadata {
 }
 
 export interface DeviceTelemetry {
-  client_id: string;
+  device_id: string;
   workspace_id: string;
   subscriptions: number;
   inbound_messages: number;
@@ -750,7 +750,7 @@ export interface Alarm {
   rule_id?: string;
   workspace_id?: string | WorkspaceBasicInfo;
   channel_id?: string | ChannelBasicInfo;
-  client_id?: string | DeviceBasicInfo;
+  device_id?: string | DeviceBasicInfo;
   subtopic?: string;
   measurement?: string;
   value?: string;
@@ -782,7 +782,7 @@ export interface AlarmsPage {
 export interface AlarmPageMeta extends BasicPageMeta {
   workspace_id?: string;
   channel_id?: string;
-  client_id?: string;
+  device_id?: string;
   subtopic?: string;
   rule_id?: string;
   status?: AlarmStatus;
@@ -805,7 +805,7 @@ export interface Report {
 
 export interface Metric {
   channel_id: string | ChannelBasicInfo;
-  client_id?: string | DeviceBasicInfo;
+  device_id?: string | DeviceBasicInfo;
   name?: string;
   subtopic?: string;
   protocol?: string;
@@ -814,7 +814,7 @@ export interface Metric {
 
 export interface ReqMetric {
   channel_id: string | ChannelBasicInfo;
-  client_ids?: string[] | DeviceBasicInfo[];
+  device_ids?: string[] | DeviceBasicInfo[];
   name?: string;
   subtopic?: string;
   protocol?: string;

@@ -12,7 +12,7 @@ const mgSdk = new SDK({
 const token = "<token>";
 const domainId = "<domainId>";
 
-mgSdk.Certs.issue("<clientId>", "<valid>", domainId, token)
+mgSdk.Certs.issue("<deviceId>", "<valid>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -20,7 +20,7 @@ mgSdk.Certs.issue("<clientId>", "<valid>", domainId, token)
     console.error(error);
   });
 
-mgSdk.Certs.listByClient("<clientId>", domainId, token)
+mgSdk.Certs.listByDevice("<deviceId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })
@@ -36,7 +36,7 @@ mgSdk.Certs.get("<certID>", domainId, token)
     console.error(error);
   });
 
-mgSdk.Certs.revoke("<clientId>", domainId, token)
+mgSdk.Certs.revoke("<deviceId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

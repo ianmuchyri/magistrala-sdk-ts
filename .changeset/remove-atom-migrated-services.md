@@ -19,10 +19,26 @@ they appear embedded in responses from services this SDK continues to
 cover (e.g. `created_by` on a Rule, or `channel` on an Alarm). Following the
 same rename already applied elsewhere in Magistrala, `Domain` is renamed to
 `Workspace` (`DomainBasicInfo` → `WorkspaceBasicInfo`, `DomainsPage` →
-`WorkspacesPage`) and `Client` is renamed to `Device` (`ClientBasicInfo` →
-`DeviceBasicInfo`, `ClientCredentials` → `DeviceCredentials`, `ClientsPage`
-→ `DevicesPage`, `ClientTelemetry` → `DeviceTelemetry`). `domain_id` /
-`domain_name` fields become `workspace_id` / `workspace_name` throughout
-(matching the backend's own field rename); `client_id`-style reference
-fields are unchanged, since the backend kept that field name on the wire.
+`WorkspacesPage`, `domain_id`/`domain_name` → `workspace_id`/`workspace_name`)
+and `Client` is renamed to `Device` (`ClientBasicInfo` → `DeviceBasicInfo`,
+`ClientCredentials` → `DeviceCredentials`, `ClientsPage` → `DevicesPage`,
+`ClientTelemetry` → `DeviceTelemetry`), including the `client`/`client_id`
+reference fields embedded in `Alarm`, `AlarmPageMeta`, `Metric`, `ReqMetric`,
+`Cert`, `BootstrapConfig`, `DeviceTelemetry`, and the generic `PageMetadata`
+filter (e.g. `Alarm.client_id` → `Alarm.device_id`, `DevicesPage.clients` →
+`DevicesPage.devices`, `ReqMetric.client_ids` → `ReqMetric.device_ids`,
+`Cert.client_cert`/`client_key` → `device_cert`/`device_key`). The
+`Certs.listByClient` and `Journal.clientTelemetry` methods are renamed to
+`listByDevice` and `deviceTelemetry` to match, with their parameters renamed
+from `clientId` to `deviceId`.
+
+This rename covers the SDK's type surface, exported names, and internal
+parameter/variable naming. It does not touch literal values that are sent
+over the wire to the current backend as-is — the bootstrap service's
+`clients/...` endpoint paths, the `Client `/`Bearer ` Authorization scheme
+prefixes, and a couple of untyped `client_id` values still written into
+outgoing request bodies — since the backend still expects those exact
+strings today; changing them would silently break real requests rather than
+just renaming a label.
+
 `Group`, `Channel`, and `User` keep their existing names.

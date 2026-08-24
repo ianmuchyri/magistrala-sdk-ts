@@ -34,7 +34,7 @@ mgSdk.Journal.listByUser("<userId>", { offset: 0, limit: 10 }, token)
     console.error(error);
   });
 
-mgSdk.Journal.clientTelemetry("<clientId>", domainId, token)
+mgSdk.Journal.deviceTelemetry("<deviceId>", domainId, token)
   .then((response: any) => {
     console.log("response: ", response);
   })

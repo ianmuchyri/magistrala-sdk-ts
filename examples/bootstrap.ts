@@ -16,7 +16,7 @@ mgSdk.Bootstrap.add(
   {
     external_id: "<externalId>",
     external_key: "externalKey",
-    id: "<clientId>",
+    id: "<deviceId>",
     name: "<bootstrapName>",
   },
   domainId,
@@ -63,8 +63,8 @@ mgSdk.Bootstrap.get("<configId>", domainId, token)
 mgSdk.Bootstrap.updateCerts(
   {
     id: "<configId>",
-    client_cert: "<clientCert>",
-    client_key: "<clientKey>",
+    device_cert: "<deviceCert>",
+    device_key: "<deviceKey>",
     ca_cert: "<caCert>",
   },
   domainId,
@@ -199,7 +199,7 @@ mgSdk.Bootstrap.assignProfile("<configId>", "<profileId>", domainId, token)
 mgSdk.Bootstrap.bindResources(
   "<configId>",
   [
-    { slot: "sensor", type: "client", resource_id: "<clientId>" },
+    { slot: "sensor", type: "client", resource_id: "<deviceId>" },
     { slot: "data", type: "channel", resource_id: "<channelId>" },
   ],
   domainId,
@@ -246,8 +246,8 @@ mgSdk.Bootstrap.renderPreview(
         config_id: "<configId>",
         slot: "sensor",
         type: "client",
-        resource_id: "<clientId>",
-        snapshot: { id: "<clientId>" },
+        resource_id: "<deviceId>",
+        snapshot: { id: "<deviceId>" },
       },
     ],
   },
