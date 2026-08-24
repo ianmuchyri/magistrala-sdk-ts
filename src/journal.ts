@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type {
-  ClientTelemetry,
+  DeviceTelemetry,
   JournalsPage,
   JournalsPageMetadata,
 } from "./defs";
@@ -128,18 +128,18 @@ export default class Journal {
   }
 
   /**
-   * Retrieves client telemetry.
-   * @param {string} clientId - The unique ID of the client.
+   * Retrieves device telemetry.
+   * @param {string} deviceId - The unique ID of the device.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<ClientTelemetry>} A client telemetry object.
-   * @throws {Error} - If client telemetry cannot be fetched.
+   * @returns {Promise<DeviceTelemetry>} A device telemetry object.
+   * @throws {Error} - If device telemetry cannot be fetched.
    */
-  public async clientTelemetry(
-    clientId: string,
+  public async deviceTelemetry(
+    deviceId: string,
     domainId: string,
     token: string
-  ): Promise<ClientTelemetry> {
+  ): Promise<DeviceTelemetry> {
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -150,7 +150,7 @@ export default class Journal {
     try {
       const response = await fetch(
         new URL(
-          `${domainId}/${this.journalsEndpoint}/client/${clientId}/telemetry`,
+          `${domainId}/${this.journalsEndpoint}/client/${deviceId}/telemetry`,
           this.journalsUrl
         ).toString(),
         options
@@ -159,8 +159,8 @@ export default class Journal {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);
       }
-      const clientTelemetry: ClientTelemetry = await response.json();
-      return clientTelemetry;
+      const deviceTelemetry: DeviceTelemetry = await response.json();
+      return deviceTelemetry;
     } catch (error) {
       throw error;
     }

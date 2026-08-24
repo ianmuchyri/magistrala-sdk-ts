@@ -30,7 +30,7 @@ mgSdk.Reports.generate(
       {
         name: "<messageName>",
         channel_id: "<channelId>",
-        client_ids: ["<clientId>"],
+        device_ids: ["<deviceId>"],
         subtopic: "",
         protocol: "",
       },
@@ -63,7 +63,7 @@ mgSdk.Reports.addConfig(
       {
         name: "<messageName>",
         channel_id: "<channelId>",
-        client_ids: ["<clientId>"],
+        device_ids: ["<deviceId>"],
         subtopic: "",
         protocol: "",
       },

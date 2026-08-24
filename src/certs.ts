@@ -22,8 +22,8 @@ export default class Certs {
   }
 
   /**
-   * Issues a certificate to a client.
-   * @param {string} clientId - The unique ID of the client to be issued a certificate.
+   * Issues a certificate to a device.
+   * @param {string} deviceId - The unique ID of the device to be issued a certificate.
    * @param {string} valid - The time in hours for which the certificate is valid such as '10h'
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
@@ -31,7 +31,7 @@ export default class Certs {
    * @throws {Error} - If the certificate cannot be issued.
    */
   public async issue(
-    clientId: string,
+    deviceId: string,
     valid: string,
     domainId: string,
     token: string
@@ -42,7 +42,7 @@ export default class Certs {
         "Content-Type": this.contentType,
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ client_id: clientId, ttl: valid }),
+      body: JSON.stringify({ client_id: deviceId, ttl: valid }),
     };
 
     try {
@@ -62,15 +62,15 @@ export default class Certs {
   }
 
   /**
-   *  Retrieves all certs matching the provided client Id.
-   * @param {string} clientId - The unique ID of the client.
+   *  Retrieves all certs matching the provided device Id.
+   * @param {string} deviceId - The unique ID of the device.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
    * @returns {Promise<CertsPage>} A page of certs.
    * @throws {Error} - If the certs cannot be fetched.
    */
-  public async listByClient(
-    clientId: string,
+  public async listByDevice(
+    deviceId: string,
     domainId: string,
     token: string
   ): Promise<CertsPage> {
@@ -83,7 +83,7 @@ export default class Certs {
     };
     try {
       const response = await fetch(
-        new URL(`${domainId}/serials/${clientId}`, this.certsUrl).toString(),
+        new URL(`${domainId}/serials/${deviceId}`, this.certsUrl).toString(),
         options
       );
       if (!response.ok) {

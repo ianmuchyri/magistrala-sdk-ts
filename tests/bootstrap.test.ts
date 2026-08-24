@@ -38,7 +38,7 @@ describe("Bootstraps", () => {
     offset: 0,
     limit: 10,
   };
-  const clientId = "77cbb344-7c41-47f3-a53a-a3d435b67207";
+  const deviceId = "77cbb344-7c41-47f3-a53a-a3d435b67207";
   const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9";
   const domainId = "886b4266-77d1-4258-abae-2931fb4f16de";
   const externalKey = "key";
@@ -67,7 +67,7 @@ describe("Bootstraps", () => {
     fetchMock.mockResponseOnce(JSON.stringify(updateStatusResponse));
 
     const response = await sdk.Bootstrap.updateStatus(
-      clientId,
+      deviceId,
       "enabled",
       domainId,
       token
@@ -89,7 +89,7 @@ describe("Bootstraps", () => {
   test("View bootstrap should view a bootstrap configuration", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(bootstrap));
 
-    const response = await sdk.Bootstrap.get(clientId, domainId, token);
+    const response = await sdk.Bootstrap.get(deviceId, domainId, token);
     expect(response).toEqual(bootstrap);
   });
 
@@ -111,7 +111,7 @@ describe("Bootstraps", () => {
     };
     fetchMock.mockResponseOnce(JSON.stringify(deleteResponse));
 
-    const response = await sdk.Bootstrap.delete(clientId, domainId, token);
+    const response = await sdk.Bootstrap.delete(deviceId, domainId, token);
     expect(response).toEqual(deleteResponse);
   });
 
@@ -252,7 +252,7 @@ describe("Bootstraps", () => {
     fetchMock.mockResponseOnce(JSON.stringify(assignResponse));
 
     const response = await sdk.Bootstrap.assignProfile(
-      clientId,
+      deviceId,
       "aa1edb32-2eac-4aad-aebe-ed96fe073879",
       domainId,
       token
@@ -266,12 +266,12 @@ describe("Bootstraps", () => {
       message: "Bootstrap resources bound successfully",
     };
     const bindings: BootstrapBindingRequest[] = [
-      { slot: "sensor", type: "client", resource_id: clientId },
+      { slot: "sensor", type: "client", resource_id: deviceId },
     ];
     fetchMock.mockResponseOnce(JSON.stringify(bindResponse));
 
     const response = await sdk.Bootstrap.bindResources(
-      clientId,
+      deviceId,
       bindings,
       domainId,
       token
@@ -282,7 +282,7 @@ describe("Bootstraps", () => {
   test("List bootstrap bindings should return binding snapshots", async () => {
     const snapshots: BootstrapBindingSnapshot[] = [
       {
-        config_id: clientId,
+        config_id: deviceId,
         slot: "sensor",
         type: "client",
         resource_id: "cc2fdb32-2eac-4aad-aebe-ed96fe073879",
@@ -292,7 +292,7 @@ describe("Bootstraps", () => {
     fetchMock.mockResponseOnce(JSON.stringify({ bindings: snapshots }));
 
     const response = await sdk.Bootstrap.listBindings(
-      clientId,
+      deviceId,
       domainId,
       token
     );
@@ -307,7 +307,7 @@ describe("Bootstraps", () => {
     fetchMock.mockResponseOnce(JSON.stringify(refreshResponse));
 
     const response = await sdk.Bootstrap.refreshBindings(
-      clientId,
+      deviceId,
       domainId,
       token
     );
@@ -334,7 +334,7 @@ describe("Bootstraps", () => {
     );
 
     const request: RenderPreviewRequest = {
-      config: { id: clientId },
+      config: { id: deviceId },
       render_context: { value: "example" },
     };
     const response = await sdk.Bootstrap.renderPreview(
@@ -348,7 +348,7 @@ describe("Bootstraps", () => {
 
   test("UpdateStatus should throw on invalid status value", async () => {
     await expect(
-      sdk.Bootstrap.updateStatus(clientId, "invalid" as any, domainId, token)
+      sdk.Bootstrap.updateStatus(deviceId, "invalid" as any, domainId, token)
     ).rejects.toThrow("Invalid bootstrap status 'invalid'");
   });
 
@@ -360,7 +360,7 @@ describe("Bootstraps", () => {
 
   test("UpdateCerts should throw when id is missing", async () => {
     await expect(
-      sdk.Bootstrap.updateCerts({ client_cert: "cert" }, domainId, token)
+      sdk.Bootstrap.updateCerts({ device_cert: "cert" }, domainId, token)
     ).rejects.toThrow("Bootstrap config id is required for updateCerts");
   });
 

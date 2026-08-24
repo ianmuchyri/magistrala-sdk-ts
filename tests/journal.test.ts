@@ -31,17 +31,17 @@ describe("Journal", () => {
     limit: 10,
   };
 
-  const clientTelemetry = {
-    client_id: "ce838355-7f80-46cf-ba5c-5fb5d5b891bc",
-    domain_id: "e61d04fc-50ce-45e9-b461-8913f4c0cfbe",
+  const deviceTelemetry = {
+    device_id: "ce838355-7f80-46cf-ba5c-5fb5d5b891bc",
+    workspace_id: "e61d04fc-50ce-45e9-b461-8913f4c0cfbe",
     subscriptions: 0,
     inbound_messages: 0,
     outbound_messages: 0,
     first_seen: "2025-02-10T12:01:54.253192Z",
-    last_seen: "2025-02-10T12:01:54.253192Z"
+    last_seen: "2025-02-10T12:01:54.253192Z",
   };
 
-  const clientId = "ce838355-7f80-46cf-ba5c-5fb5d5b891bc";
+  const deviceId = "ce838355-7f80-46cf-ba5c-5fb5d5b891bc";
 
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -118,22 +118,18 @@ describe("Journal", () => {
   test("listByUser should return a list of user journals", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(userJournalsPage));
 
-    const response = await sdk.Journal.listByUser(
-      userId,
-      queryParams,
-      token,
-    );
+    const response = await sdk.Journal.listByUser(userId, queryParams, token);
     expect(response).toEqual(userJournalsPage);
   });
 
-  test("clientTelemetry should return client telemetry", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(clientTelemetry));
+  test("deviceTelemetry should return device telemetry", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(deviceTelemetry));
     const domainId = "e61d04fc-50ce-45e9-b461-8913f4c0cfbe";
-    const response = await sdk.Journal.clientTelemetry(
-      clientId,
+    const response = await sdk.Journal.deviceTelemetry(
+      deviceId,
       domainId,
-      token,
+      token
     );
-    expect(response).toEqual(clientTelemetry);
+    expect(response).toEqual(deviceTelemetry);
   });
 });

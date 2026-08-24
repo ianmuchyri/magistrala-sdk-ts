@@ -29,7 +29,7 @@ describe("Reports SDK", () => {
 
   const metric: ReqMetric = {
     channel_id: "channel",
-    client_ids: ["client"],
+    device_ids: ["client"],
     name: "temp",
     subtopic: "",
     protocol: "",
@@ -47,7 +47,7 @@ describe("Reports SDK", () => {
     id: "id",
     name: "name",
     description: "description",
-    domain_id: domainId,
+    workspace_id: domainId,
     metrics: [metric],
     schedule,
   };

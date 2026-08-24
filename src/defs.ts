@@ -1,6 +1,18 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
+export type Status = "enabled" | "disabled";
+
+export type Metadata = Record<string, unknown>;
+
+export const QueryParamRoles = "roles";
+
+// Common entity definitions. Groups, Channels, Devices, Workspaces and Users
+// are now managed via Atom's GraphQL API rather than this SDK's HTTP
+// methods, but their shapes are kept here as the shared vocabulary
+// applications use to type that data, and because they still appear
+// embedded in responses from services this SDK does cover (e.g.
+// `created_by` on a Rule, or `channel` on an Alarm).
 export interface UserBasicInfo {
   id?: string;
   first_name?: string;
@@ -10,8 +22,6 @@ export interface UserBasicInfo {
   status?: Status;
   profile_picture?: string;
 }
-
-export type Metadata = Record<string, unknown>;
 
 export interface User extends UserBasicInfo {
   role?: string;
@@ -38,23 +48,21 @@ export interface UserCredentials {
   secret?: string;
 }
 
-export interface ClientCredentials {
+export interface DeviceCredentials {
   identity?: string;
   secret?: string;
 }
 
-export interface ClientBasicInfo {
+export interface DeviceBasicInfo {
   id?: string;
   name?: string;
-  credentials?: ClientCredentials;
+  credentials?: DeviceCredentials;
   status?: Status;
 }
 
-export const QueryParamRoles = "roles";
-
-export interface Client extends ClientBasicInfo {
+export interface Device extends DeviceBasicInfo {
   tags?: string[];
-  domain_id?: string | DomainBasicInfo;
+  workspace_id?: string | WorkspaceBasicInfo;
   parent_group_id?: string;
   metadata?: Metadata;
   private_metadata?: Metadata;
@@ -76,8 +84,8 @@ export interface Client extends ClientBasicInfo {
   roles?: MemberRoleActions[];
 }
 
-export interface ClientsPage {
-  clients: Client[];
+export interface DevicesPage {
+  devices: Device[];
   total: number;
   offset: number;
   limit: number;
@@ -92,7 +100,7 @@ export interface GroupBasicInfo {
 
 export interface Group extends GroupBasicInfo {
   tags?: string[];
-  domain_id?: string | DomainBasicInfo;
+  workspace_id?: string | WorkspaceBasicInfo;
   parent_id?: string | GroupBasicInfo;
   metadata?: Metadata;
   level?: number;
@@ -139,7 +147,7 @@ export interface ChannelBasicInfo {
 }
 
 export interface Channel extends ChannelBasicInfo {
-  domain_id?: string | DomainBasicInfo;
+  workspace_id?: string | WorkspaceBasicInfo;
   metadata?: Metadata;
   tags?: string[];
   parent_group_id?: string;
@@ -180,14 +188,14 @@ export interface Token {
   access_type?: string;
 }
 
-export interface DomainBasicInfo {
+export interface WorkspaceBasicInfo {
   id?: string;
   name?: string;
   route?: string;
   status?: Status;
 }
 
-export interface Domain extends DomainBasicInfo {
+export interface Workspace extends WorkspaceBasicInfo {
   tags?: string[];
   metadata?: Metadata;
   role_id?: string;
@@ -201,8 +209,8 @@ export interface Domain extends DomainBasicInfo {
   roles?: MemberRoleActions[];
 }
 
-export interface DomainsPage {
-  domains: Domain[];
+export interface WorkspacesPage {
+  workspaces: Workspace[];
   total: number;
   offset: number;
   limit: number;
@@ -215,8 +223,8 @@ export interface Permissions {
 export interface Invitation {
   invited_by: string | UserBasicInfo;
   invitee_user_id: string | UserBasicInfo;
-  domain_id: string | DomainBasicInfo;
-  domain_name?: string;
+  workspace_id: string | WorkspaceBasicInfo;
+  workspace_name?: string;
   role_id?: string;
   role_name?: string;
   actions?: string[];
@@ -237,8 +245,6 @@ export interface Response {
   status: number;
   message?: string;
 }
-
-export type Status = "enabled" | "disabled";
 
 export interface BasicPageMeta {
   total?: number;
@@ -275,7 +281,7 @@ export interface PageMetadata extends BasicPageMeta {
   state?: string;
   list_perms?: boolean;
   invited_by?: string;
-  domain?: string;
+  workspace?: string;
   user_id?: string;
   relation?: string;
   from?: number;
@@ -285,7 +291,7 @@ export interface PageMetadata extends BasicPageMeta {
   role_id?: string;
   role_name?: string;
   group?: string;
-  client?: string;
+  device?: string;
   channel?: string;
   connection_type?: string;
   root_group?: boolean;
@@ -301,7 +307,7 @@ export interface MessagesPage {
 
 export interface MessagesPageMetadata extends PageMetadata {
   subtopic?: string;
-  publisher?: string | ClientBasicInfo;
+  publisher?: string | DeviceBasicInfo;
   protocol?: string;
   comparator?: string;
   vb?: boolean;
@@ -315,7 +321,7 @@ export interface MessagesPageMetadata extends PageMetadata {
 export interface SenMLMessage {
   channel?: string | ChannelBasicInfo;
   subtopic?: string;
-  publisher?: string | ClientBasicInfo;
+  publisher?: string | DeviceBasicInfo;
   protocol?: string;
   name?: string;
   unit?: string;
@@ -329,10 +335,10 @@ export interface SenMLMessage {
 }
 
 export interface Cert {
-  client_id?: string;
+  device_id?: string;
   cert_serial?: string;
-  client_key?: string;
-  client_cert?: string;
+  device_key?: string;
+  device_cert?: string;
   expiration?: string;
 }
 
@@ -350,8 +356,8 @@ export interface BootstrapConfig {
   external_id?: string;
   external_key?: string;
   name?: string;
-  client_cert?: string;
-  client_key?: string;
+  device_cert?: string;
+  device_key?: string;
   ca_cert?: string;
   content?: string;
   status?: BootstrapStatus;
@@ -381,7 +387,7 @@ export type BootstrapContentFormat =
 
 export interface BootstrapProfile {
   id?: string;
-  domain_id?: string;
+  workspace_id?: string;
   name?: string;
   description?: string;
   content_format?: BootstrapContentFormat;
@@ -564,7 +570,7 @@ export type RuleStatus = "enabled" | "disabled" | "deleted" | "all" | "unknown";
 export interface Rule {
   id?: string;
   name?: string;
-  domain?: string | DomainBasicInfo;
+  workspace?: string | WorkspaceBasicInfo;
   metadata?: Metadata;
   tags?: string[];
   input_channel?: string | ChannelBasicInfo;
@@ -659,9 +665,9 @@ export interface RulesPage extends RulesPageMetadata {
   rules: Rule[];
 }
 
-export interface ClientTelemetry {
-  client_id: string;
-  domain_id: string;
+export interface DeviceTelemetry {
+  device_id: string;
+  workspace_id: string;
   subscriptions: number;
   inbound_messages: number;
   outbound_messages: number;
@@ -672,7 +678,7 @@ export interface ClientTelemetry {
 export interface InvitationPageMeta extends BasicPageMeta {
   invited_by?: string;
   invitee_user_id?: string;
-  domain_id?: string;
+  workspace_id?: string;
   role_id?: string;
   invited_by_or_user_id?: string;
   state?: string;
@@ -681,8 +687,8 @@ export interface InvitationPageMeta extends BasicPageMeta {
 export type EntityType =
   | "groups"
   | "channels"
-  | "clients"
-  | "domains"
+  | "devices"
+  | "workspaces"
   | "users"
   | "dashboards"
   | "messages";
@@ -691,7 +697,7 @@ export interface Scope {
   id?: string;
   pat_id?: string;
   entity_type?: EntityType;
-  domain_id?: string;
+  workspace_id?: string;
   operation?: string;
   entity_id?: string;
 }
@@ -742,9 +748,9 @@ export type AlarmStatus = "active" | "cleared" | "all";
 export interface Alarm {
   id?: string;
   rule_id?: string;
-  domain_id?: string | DomainBasicInfo;
+  workspace_id?: string | WorkspaceBasicInfo;
   channel_id?: string | ChannelBasicInfo;
-  client_id?: string | ClientBasicInfo;
+  device_id?: string | DeviceBasicInfo;
   subtopic?: string;
   measurement?: string;
   value?: string;
@@ -774,9 +780,9 @@ export interface AlarmsPage {
 }
 
 export interface AlarmPageMeta extends BasicPageMeta {
-  domain_id?: string;
+  workspace_id?: string;
   channel_id?: string;
-  client_id?: string;
+  device_id?: string;
   subtopic?: string;
   rule_id?: string;
   status?: AlarmStatus;
@@ -799,7 +805,7 @@ export interface Report {
 
 export interface Metric {
   channel_id: string | ChannelBasicInfo;
-  client_id?: string | ClientBasicInfo;
+  device_id?: string | DeviceBasicInfo;
   name?: string;
   subtopic?: string;
   protocol?: string;
@@ -808,7 +814,7 @@ export interface Metric {
 
 export interface ReqMetric {
   channel_id: string | ChannelBasicInfo;
-  client_ids?: string[] | ClientBasicInfo[];
+  device_ids?: string[] | DeviceBasicInfo[];
   name?: string;
   subtopic?: string;
   protocol?: string;
@@ -869,7 +875,7 @@ export interface ReportConfig {
   id?: string;
   name?: string;
   description?: string;
-  domain_id?: string | DomainBasicInfo;
+  workspace_id?: string | WorkspaceBasicInfo;
   schedule?: Schedule;
   config?: MetricConfig;
   email?: EmailSetting;
