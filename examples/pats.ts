@@ -87,7 +87,7 @@ mgSdk.PATs.revoke(patId, token)
 mgSdk.PATs.addScope(
   [
     {
-      domain_id: "<domainId>",
+      workspace_id: "<domainId>",
       entity_type: "groups",
       operation: "delete",
       entity_id: "*",

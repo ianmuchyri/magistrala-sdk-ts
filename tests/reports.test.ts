@@ -47,7 +47,7 @@ describe("Reports SDK", () => {
     id: "id",
     name: "name",
     description: "description",
-    domain_id: domainId,
+    workspace_id: domainId,
     metrics: [metric],
     schedule,
   };

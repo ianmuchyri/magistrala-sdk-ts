@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type {
-  ClientTelemetry,
+  DeviceTelemetry,
   JournalsPage,
   JournalsPageMetadata,
 } from "./defs";
@@ -132,14 +132,14 @@ export default class Journal {
    * @param {string} clientId - The unique ID of the client.
    * @param {string} domainId - The unique ID of the domain.
    * @param {string} token - Authorization token.
-   * @returns {Promise<ClientTelemetry>} A client telemetry object.
+   * @returns {Promise<DeviceTelemetry>} A client telemetry object.
    * @throws {Error} - If client telemetry cannot be fetched.
    */
   public async clientTelemetry(
     clientId: string,
     domainId: string,
     token: string
-  ): Promise<ClientTelemetry> {
+  ): Promise<DeviceTelemetry> {
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -159,7 +159,7 @@ export default class Journal {
         const errorRes = await response.json();
         throw Errors.HandleError(errorRes.message, response.status);
       }
-      const clientTelemetry: ClientTelemetry = await response.json();
+      const clientTelemetry: DeviceTelemetry = await response.json();
       return clientTelemetry;
     } catch (error) {
       throw error;
