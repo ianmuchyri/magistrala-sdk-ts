@@ -1,183 +1,35 @@
 // Copyright (c) Abstract Machines
 // SPDX-License-Identifier: Apache-2.0
 
+export type Status = "enabled" | "disabled";
+
+export type Metadata = Record<string, unknown>;
+
+export const QueryParamRoles = "roles";
+
+// Lightweight reference shapes for entities managed outside this SDK (via
+// Atom's GraphQL API). Kept here because they still appear embedded in
+// responses from services this SDK does cover, e.g. as `created_by` or
+// `channel` on an Alarm, Rule, or Bootstrap config.
 export interface UserBasicInfo {
   id?: string;
   first_name?: string;
   last_name?: string;
   email?: string;
-  credentials?: UserCredentials;
   status?: Status;
   profile_picture?: string;
-}
-
-export type Metadata = Record<string, unknown>;
-
-export interface User extends UserBasicInfo {
-  role?: string;
-  tags?: string[];
-  metadata?: Metadata;
-  private_metadata?: Metadata;
-  created_at?: Date;
-  updated_at?: Date;
-  updated_by?: string | UserBasicInfo;
-  verified_at?: Date;
-  permissions?: string[];
-  auth_provider?: string;
-}
-
-export interface UsersPage {
-  users: User[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-export interface UserCredentials {
-  username?: string;
-  secret?: string;
-}
-
-export interface ClientCredentials {
-  identity?: string;
-  secret?: string;
 }
 
 export interface ClientBasicInfo {
   id?: string;
   name?: string;
-  credentials?: ClientCredentials;
   status?: Status;
-}
-
-export const QueryParamRoles = "roles";
-
-export interface Client extends ClientBasicInfo {
-  tags?: string[];
-  domain_id?: string | DomainBasicInfo;
-  parent_group_id?: string;
-  metadata?: Metadata;
-  private_metadata?: Metadata;
-  created_at?: Date;
-  updated_at?: Date;
-  updated_by?: string | UserBasicInfo;
-  identity?: string;
-  parent_group_path?: string;
-  role_id?: string;
-  role_name?: string;
-  actions?: string[];
-  access_type?: string;
-  access_provider_id?: string;
-  access_provider_role_id?: string;
-  access_provider_role_name?: string;
-  access_provider_role_actions?: string[];
-  connection_types?: string[];
-  member_id?: string;
-  roles?: MemberRoleActions[];
-}
-
-export interface ClientsPage {
-  clients: Client[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-export interface GroupBasicInfo {
-  id?: string;
-  name?: string;
-  status?: Status;
-  description?: string;
-}
-
-export interface Group extends GroupBasicInfo {
-  tags?: string[];
-  domain_id?: string | DomainBasicInfo;
-  parent_id?: string | GroupBasicInfo;
-  metadata?: Metadata;
-  level?: number;
-  path?: string;
-  children?: Group[];
-  created_at?: Date;
-  updated_at?: Date;
-  updated_by?: string | UserBasicInfo;
-  role_id?: string;
-  role_name?: string;
-  actions?: string[];
-  access_type?: string;
-  access_provider_id?: string;
-  access_provider_role_id?: string;
-  access_provider_role_name?: string;
-  access_provider_role_actions?: string[];
-  member_id?: string;
-  roles?: MemberRoleActions[];
-}
-
-export interface GroupsPage {
-  groups: Group[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-export interface HierarchyPageMeta {
-  level?: number;
-  direction?: number; // ancestors (+1) or descendants (-1)
-  // - `true`  - result is JSON tree representing groups hierarchy,
-  // - `false` - result is JSON array of groups.
-  tree?: boolean;
-}
-
-export interface HierarchyPage extends HierarchyPageMeta {
-  groups: Group[];
 }
 
 export interface ChannelBasicInfo {
   id?: string;
   name?: string;
   status?: Status;
-}
-
-export interface Channel extends ChannelBasicInfo {
-  domain_id?: string | DomainBasicInfo;
-  metadata?: Metadata;
-  tags?: string[];
-  parent_group_id?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  updated_by?: string;
-  parent_group_path?: string;
-  role_id?: string;
-  role_name?: string;
-  actions?: string[];
-  access_type?: string;
-  access_provider_id?: string;
-  access_provider_role_id?: string;
-  access_provider_role_name?: string;
-  access_provider_role_actions?: string[];
-  connection_types?: string[];
-  member_id?: string;
-  roles?: MemberRoleActions[];
-  route?: string;
-}
-
-export interface ChannelsPage {
-  channels: Channel[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-export interface Login {
-  username?: string;
-  password?: string;
-  description?: string;
-}
-
-export interface Token {
-  access_token: string;
-  refresh_token: string;
-  access_type?: string;
 }
 
 export interface DomainBasicInfo {
@@ -187,58 +39,10 @@ export interface DomainBasicInfo {
   status?: Status;
 }
 
-export interface Domain extends DomainBasicInfo {
-  tags?: string[];
-  metadata?: Metadata;
-  role_id?: string;
-  role_name?: string;
-  actions?: string[];
-  created_by?: string | UserBasicInfo;
-  updated_by?: string | UserBasicInfo;
-  created_at?: Date;
-  updated_at?: Date;
-  member_id?: string;
-  roles?: MemberRoleActions[];
-}
-
-export interface DomainsPage {
-  domains: Domain[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-export interface Permissions {
-  permissions: string[];
-}
-
-export interface Invitation {
-  invited_by: string | UserBasicInfo;
-  invitee_user_id: string | UserBasicInfo;
-  domain_id: string | DomainBasicInfo;
-  domain_name?: string;
-  role_id?: string;
-  role_name?: string;
-  actions?: string[];
-  created_at?: Date;
-  updated_at?: Date;
-  confirmed_at?: Date;
-  rejected_at?: Date;
-}
-
-export interface InvitationsPage {
-  invitations: Invitation[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
 export interface Response {
   status: number;
   message?: string;
 }
-
-export type Status = "enabled" | "disabled";
 
 export interface BasicPageMeta {
   total?: number;

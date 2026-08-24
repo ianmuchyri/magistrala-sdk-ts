@@ -7,6 +7,8 @@
 Magistrala typescript sdk is a typescript driver for [Magistrala HTTP API][docs] API reference in the Swagger UI can be found [here][api].
 It does both system administration (provisioning) and messaging.
 
+Identity and authorization (workspaces, groups, users, clients, channels) are served by [Atom](https://github.com/absmach/magistrala/tree/main/pkg/atom) over GraphQL and are out of scope for this SDK. This SDK covers messaging, bootstrap provisioning, certificates, alarms, reports, the rules engine, and personal access tokens.
+
 ## Install
 
 Using npm:
